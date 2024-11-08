@@ -12,7 +12,7 @@ const Popup = ({popUp,setpopUp}) => {
     const [positionsOpen,setpositionsOpen] =useState('');
     const [employmentType,setemploymentType] =useState('');
     const [salaryLPA,setsalaryLPA] =useState('');
-    const [numCandidatesApplied,setnumCandidatesApplied] =useState('');
+    const [numCandidatesApplied,setnumCandidatesApplied] =useState(0);
     const [globalData,setglobalData] =useRecoilState(UserAtom);
     
     // useEffect(()=>{
@@ -66,7 +66,7 @@ const Popup = ({popUp,setpopUp}) => {
               <div className="flex items-center justify-between text-gray-700">
                 <label className="w-[150px] text-sm font-medium">Post Name:</label>
                 <input
-                  className="border w-full border-gray-300 rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  className="border w-full border-gray-300 rounded-lg p-2 outline-none  transition-all"
                   value={jobTitle}
                   onChange={(e) => setjobTitle(e.target.value)}
                 />
@@ -84,9 +84,9 @@ const Popup = ({popUp,setpopUp}) => {
               <div className="flex items-center justify-between text-gray-700">
                 <label className="w-[150px] text-sm font-medium">Total Applied:</label>
                 <input
-                  className="border w-full border-gray-300 rounded-lg p-2 outline-none   transition-all"
-                  value={numCandidatesApplied}
-                  onChange={(e) => setnumCandidatesApplied(e.target.value)}
+                  className="border bg-slate-300  w-full border-gray-300 cursor-not-allowed pointer-events-none rounded-lg p-2 outline-none   transition-all"
+                  value={0}
+                  readOnly
                 />
               </div>
   

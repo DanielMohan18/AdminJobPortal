@@ -7,7 +7,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
 
 const CompleteDetails = () => {
-  const { cid } = useParams();
+  const { cid ,id} = useParams();
   const navigate = useNavigate();
   const [candidateDetails, setCandidateDetails] = useRecoilState(CandidateAtom);
 
@@ -45,7 +45,7 @@ const CompleteDetails = () => {
           <div className="flex justify-end pt-2">
             <FaArrowRight
               className="cursor-pointer transition-transform duration-200 hover:rotate-180"
-              onClick={() => navigate('/details')}
+              onClick={() => navigate(`/details/${id}`)}
             />
           </div>
 
@@ -57,80 +57,81 @@ const CompleteDetails = () => {
             
             {/* Name */}
             <div className="flex flex-col gap-1">
-              <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Name" />
-              <TextInput
-                type="text"
-                name="candidateName"
-                value={filteredCandidate.profile.name}
-                readOnly
-                className="cursor-not-allowed w-full border border-gray-300 rounded-lg shadow-sm p-1 md:p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
+            <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Name" />
+            <input
+             type="text"
+             name="candidateName"
+             value={filteredCandidate.profile.name}
+             readOnly
+             className="cursor-not-allowed pointer-events-none bg-slate-200 w-full border border-gray-300 rounded-lg p-1 md:p-2 outline-none"
+            />
             </div>
+
 
             {/* Email */}
             <div className="flex flex-col gap-1">
               <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Email" />
-              <TextInput
+              <input
                 type="email"
                 name="email"
                 value={filteredCandidate.profile.email}
                 readOnly
-                className="cursor-not-allowed w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="cursor-not-allowed pointer-events-none w-full border border-gray-300 bg-slate-200 rounded-lg shadow-sm p-2 outline-none"
               />
             </div>
 
             {/* Contact */}
             <div className="flex flex-col gap-1">
-              <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Contact No" />
-              <TextInput
+              <Label className="font-semibold  text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Contact No" />
+              <input
                 type="tel"
                 name="contact"
                 value={filteredCandidate.profile.contact}
                 readOnly
-                className="cursor-not-allowed w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="cursor-not-allowed pointer-events-none w-full border border-gray-300 bg-slate-200 rounded-lg shadow-sm p-2 outline-none"
               />
             </div>
 
             {/* Skills */}
             <div className="flex flex-col gap-1">
               <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Skills" />
-              <TextInput
+              <input
                 type="text"
                 name="skills"
                 value={filteredCandidate.profile.skills.join(', ')}
                 readOnly
-                className="cursor-not-allowed w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="cursor-not-allowed pointer-events-none w-full border border-gray-300 rounded-lg bg-slate-200 shadow-sm p-2 outline-none"
               />
             </div>
 
             {/* Experience */}
             <div className="flex flex-col gap-1">
               <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Experience" />
-              <TextInput
+              <input
                 type="text"
                 name="experience"
                 value={filteredCandidate.profile.experience}
                 readOnly
-                className="cursor-not-allowed  w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="cursor-not-allowed pointer-events-none w-full border border-gray-300 bg-slate-200 rounded-lg shadow-sm p-2  outline-none"
               />
             </div>
 
             {/* Status Dropdown */}
             <div className="flex flex-col gap-1">
               <Label className="font-semibold text-gray-700 text-sm md:text-[16px] lg:text-lg" value="Status" />
-              <Select
+              <select
                 id="status"
                 name="status"
                 defaultValue={status}
                 onChange={(e)=>setStatus(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg shadow-sm p-2 bg-blue-200 "
               >
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Shorlisted">Shorlisted</option>
                 <option value="Rejected">Rejected</option>
                 <option value="On Hold">On Hold</option>
-              </Select>
+              </select>
             </div>
           </div>
 

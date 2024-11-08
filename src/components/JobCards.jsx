@@ -31,11 +31,11 @@ const JobCards = () => {
   return (
     <div>
        
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 '>
+      <div data-aos="fade-in" className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[calc(100vh-100px)] overflow-y-auto'>
         {/* cardtemplate */}
        {Jobdetails.map((res,index)=>(
     
-           <div key={index} data-aos="fade-up" data-aos-delay="100" className='p-2 flex flex-col border gap-4 border-slate-100 shadow-lg py-4 hover:scale-105'>
+           <div key={index}  data-aos-delay="100" className='p-2 flex flex-col border transform duration-200 gap-4 border-slate-100 shadow-lg py-4 hover:scale-105'>
            <h1 className='text-2xl font bold '>{res.jobTitle}</h1>
            <span className='font-light text-gray-400 w-full h-16'>{res.jobDescription}</span>
            

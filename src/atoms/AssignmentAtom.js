@@ -5,4 +5,4 @@ const AssignmentAtom =atom ({
     default: JSON.parse(localStorage.getItem('Assignmentdetails')) || []
   })
   
-  export default CandidateAtom
+  export default AssignmentAtom

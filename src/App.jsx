@@ -10,6 +10,7 @@ import Details from "./components/Details";
 import { RecoilRoot } from "recoil";
 import CompleteDetails from "./components/CompleteDetails";
 import EditJob from "./components/EditJob";
+import EditMcq from "./components/AssignmentFolder/EditMcq";
 function App() {
   useEffect(() => {
     AOS.init({
@@ -29,8 +30,9 @@ function App() {
       <Route path={'/job'} element={<Job/>} ></Route>
       <Route path={'/assignment'} element={<Assignment />}></Route>
       <Route path={'/details/:id'} element={<Details/>}></Route>
-      <Route path={'/candidateComDetails/:cid'} element={<CompleteDetails />}></Route>
+      <Route path={'/candidateComDetails/:cid/:id'} element={<CompleteDetails />}></Route>
       <Route path={'/editjob/:id'} element={<EditJob />}></Route>
+      <Route path={'/editmcq/:qid'} element={<EditMcq />}></Route>
     </Routes>
     </BrowserRouter>
     </RecoilRoot>
