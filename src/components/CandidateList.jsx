@@ -41,6 +41,7 @@ const CandidateList = () => {
               console.log(response);
               if (response.data) {
                 setCandidateDetails(response.data);
+                console.log(JSON.stringify(response.data));
                 localStorage.setItem('Candidatedetails', JSON.stringify(response.data)); 
               }
             } catch (err) {
