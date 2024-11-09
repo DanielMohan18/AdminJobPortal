@@ -18,10 +18,10 @@ const NotificationM = ({  context }) => {
       const timer = setTimeout(() => {
         setNote(false); 
         setEdit(false);
-      }, 2500);
+      }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [note,edit]);
+  }, [note,edit,setEdit,setNote]);
 
   return (
     (note || edit) && (

@@ -34,7 +34,7 @@ const JobS = () => {
         {/* cardtemplate */}
        {Jobdetails.map((res,index)=>(
     
-           <div key={index}  data-aos-delay="100" className='p-2 flex flex-col justify-center bg-slate-100 items-center border transform duration-200 gap-4 border-gray-200 shadow-lg py-4 hover:scale-105 rounded-md'>
+           <div key={index}  data-aos-delay="100" className='p-2 flex flex-col h-[220px] justify-center bg-white items-center border border-slate-200 transform duration-200 gap-4 border-gray-200 shadow-lg py-4 hover:scale-105 rounded-md'>
            <h1 className='text-2xl font bold '>{res.jobTitle}</h1>
            <div className='  p-2 flex sm:gap-1 justify-center items-center'> 
             <button 

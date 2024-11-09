@@ -133,7 +133,7 @@ const handleDelete = async () => {
   return (
     <div className="w-full max-h-screen  flex justify-center items-center bg-gray-100 relative">
       {note?<NotificationM context={context}/>:null}
-      <div className="container max-h-screen overflow-y-auto mx-2 sm:mx-auto bg-white border border-gray-200 rounded-lg shadow-lg p-8 sm:w-10/12 lg:w-8/12 xl:w-6/12">
+      <div className="container max-h-screen overflow-y-auto my-6 mx-2 sm:mx-auto bg-white border border-gray-200 rounded-lg shadow-lg p-8 sm:w-10/12 lg:w-8/12 xl:w-6/12">
         
         <div className="space-y-6">
          

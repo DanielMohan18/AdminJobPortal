@@ -46,7 +46,7 @@ const Home = () => {
                 Job
               </p>
               <div className='flex items-center justify-center'>
-              <FaUserLock className='text-4xl ' />
+              <FaUserLock className='text-[22px] sm:text-3xl md:text-4xl ' />
               </div>
             </p>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100"></span>
@@ -60,7 +60,7 @@ const Home = () => {
                 Assignment
               </p>
               <div className='flex items-center justify-center'>
-              <FaUserLock className='text-4xl ' />
+              <FaUserLock className='text-[22px] sm:text-3xl md:text-4xl ' />
               </div>
             </p>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100 group-hover:scale-110"></span>
@@ -74,7 +74,7 @@ const Home = () => {
                 Student
               </p>
               <div className='flex items-center justify-center'>
-              <FaUserGraduate className='text-4xl ' />
+              <FaUserGraduate className='text-[22px] sm:text-3xl md:text-4xl ' />
               </div>
             </p>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100 group-hover:scale-110"></span>
