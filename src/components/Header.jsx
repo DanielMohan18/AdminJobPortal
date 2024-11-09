@@ -41,7 +41,7 @@ const Header = () => {
           <div
             key={link.path}
             onClick={() => navigate(link.path)}
-            className={`${location.pathname === link.path ? "text-yellow-300 font-semibold scale-110" : "text-white"} cursor-pointer transform transition duration-300 ease-in-out hover:scale-110 hover:text-yellow-300`}
+            className={`${location.pathname === link.path ? "text-yellow-300 font-semibold scale-110" : "text-white"} cursor-pointer ${location.pathname.startsWith('/student')?"hidden":"block"} transform transition duration-300 ease-in-out hover:scale-110 hover:text-yellow-300`}
           >
             {link.label}
           </div>
