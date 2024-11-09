@@ -1,7 +1,8 @@
 import React from 'react'
 import entBG from '../assets/entBG.webp'
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { FaUserLock } from "react-icons/fa";
+import { FaUserGraduate } from "react-icons/fa";
 const Home = () => {
   const navigate=useNavigate();  
   
@@ -40,14 +41,42 @@ const Home = () => {
             <div 
             onClick={()=>{navigate('/job')}} 
             className="relative group text-center cursor-pointer transform transition duration-300 ease-in-out hover:scale-110">
-            <p data-aos="fade-right" data-aos-delay='200' >Jobs</p>
+            <p data-aos="fade-right" data-aos-delay='600'className='flex gap-3 md:gap-6 text-center items-center justify-center' >
+              <p>
+                Job
+              </p>
+              <div className='flex items-center justify-center'>
+              <FaUserLock className='text-4xl ' />
+              </div>
+            </p>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100"></span>
             </div>
         {/* Assignments Div  */}
             <div 
             onClick={()=>{navigate('/assignment')}} 
             className="relative group text-center cursor-pointer transform transition duration-300 ease-in-out ">
-            <p data-aos="fade-right" data-aos-delay='600' >Assignment</p>
+            <p data-aos="fade-right" data-aos-delay='600'className='flex gap-3 md:gap-6 text-center items-center justify-center' >
+              <p>
+                Assignment
+              </p>
+              <div className='flex items-center justify-center'>
+              <FaUserLock className='text-4xl ' />
+              </div>
+            </p>
+            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100 group-hover:scale-110"></span>
+            </div>
+        {/* Students div */}
+            <div 
+            onClick={()=>{navigate('/student/job')}} 
+            className="relative group text-center cursor-pointer transform transition duration-300 ease-in-out ">
+            <p data-aos="fade-right" data-aos-delay='600'className='flex gap-3 md:gap-6 text-center items-center justify-center' >
+              <p>
+                Student
+              </p>
+              <div className='flex items-center justify-center'>
+              <FaUserGraduate className='text-4xl ' />
+              </div>
+            </p>
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-500 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100 group-hover:scale-110"></span>
             </div>
           </div>

@@ -62,6 +62,15 @@
       "positionsOpen": 12,
       "employmentType": "FT",
       "salaryLPA": 8
+    },
+    {
+      "id": 60876,
+      "jobTitle": "webd",
+      "jobDescription": "biuciudhuhsd",
+      "numCandidatesApplied": 0,
+      "positionsOpen": 7,
+      "employmentType": "fulltime",
+      "salaryLPA": 12
     }
   ],
   "candidates": [
@@ -69,7 +78,7 @@
       "cid": 21456,
       "jobId": 48293,
       "candidateName": "Alice Johnson",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-12",
       "status": "Under Review",
       "profile": {
@@ -349,7 +358,7 @@
       },
       "opt3": {
         "text": "Design user interfaces for websites.",
-        "bool": false
+        "bool": true
       },
       "opt4": {
         "text": "Conduct financial audits.",
@@ -462,27 +471,6 @@
       }
     },
     {
-      "id": 98765,
-      "jobTitle": "Full Stack",
-      "question": "Which stack does a Full Stack developer typically use?",
-      "opt1": {
-        "text": "MERN (MongoDB, Express, React, Node.js)",
-        "bool": true
-      },
-      "opt2": {
-        "text": "LAMP (Linux, Apache, MySQL, PHP)",
-        "bool": false
-      },
-      "opt3": {
-        "text": "Data analysis tools",
-        "bool": false
-      },
-      "opt4": {
-        "text": "Photoshop and Illustrator",
-        "bool": false
-      }
-    },
-    {
       "id": 23083,
       "jobTitle": "Software Engineer",
       "question": "what are true about useEffect",
@@ -500,27 +488,6 @@
       },
       "opt4": {
         "text": "dependency array is a parameter of useEffect",
-        "bool": true
-      }
-    },
-    {
-      "id": 26376,
-      "jobTitle": "dddd",
-      "question": "what is DD",
-      "opt1": {
-        "text": "Dani Daniels",
-        "bool": true
-      },
-      "opt2": {
-        "text": "Daniel mohan kavuri",
-        "bool": false
-      },
-      "opt3": {
-        "text": "Daniel Dani",
-        "bool": false
-      },
-      "opt4": {
-        "text": "Don Doscoww",
         "bool": true
       }
     },

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import JobCards from './JobCards';
 import Popup from './Popup';
-
+import NotificationM from './Notification';
+import { useRecoilValue } from 'recoil';
+import NoteAtom from '../atoms/NoteAtom';
 const YourComponent = () => {
+    
     const [popUp,setpopUp]=useState(false);
+    const note = useRecoilValue(NoteAtom);
 
   return (
     <div className="w-screen flex sm:flex-row flex-col">
@@ -21,11 +25,17 @@ const YourComponent = () => {
       </div>
 
       {/* Main content area */}
-      <div className="sm:w-10/12 w-full px-4 py-4 ">
+      <div className="sm:w-10/12 w-full px-4 py-4 relative ">
+       {note?
+        <NotificationM context={"Added Successfully"} />
+       :null}
+
         {/* popup for add */}
-       {popUp? <Popup popUp={popUp} setpopUp={setpopUp}/> :null}       
+       {popUp? <Popup popUp={popUp} setpopUp={setpopUp}/> :null}   
+
         {/* Cards */}
         <JobCards  />
+
       </div>
     </div>
   );

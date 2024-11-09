@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { RxCross1 } from "react-icons/rx";
 import { useRecoilState } from 'recoil';
 import UserAtom from '../atoms/UserAtom';
+import NoteAtom from '../atoms/NoteAtom';
 import axios from 'axios';
 
 const Popup = ({popUp,setpopUp}) => {
@@ -13,7 +14,9 @@ const Popup = ({popUp,setpopUp}) => {
     const [employmentType,setemploymentType] =useState('');
     const [salaryLPA,setsalaryLPA] =useState('');
     const [numCandidatesApplied,setnumCandidatesApplied] =useState(0);
+
     const [globalData,setglobalData] =useRecoilState(UserAtom);
+    const [note,setNote]=useRecoilState(NoteAtom);
     
     // useEffect(()=>{
     //   console.log(globalData);
@@ -36,18 +39,22 @@ const Popup = ({popUp,setpopUp}) => {
             const  UpdateJobs = [...globalData, newJob];
             setglobalData(UpdateJobs);
             localStorage.setItem('Jobdetails', JSON.stringify(UpdateJobs));
-            try {
-                const response = await axios.post('http://localhost:3040/jobs', newJob);
-            } catch (error) {
-                console.error('Error posting job to API:', error);
-                alert('Failed to save job to server');
-            }
+
+            //Server
+
+            // try {
+            //     const response = await axios.post('http://localhost:3040/jobs', newJob);
+            // } catch (error) {
+            //     console.error('Error posting job to API:', error);
+            //     alert('Failed to save job to server');
+            // }
+
+
         } else {
             alert("Enter Something!!");
-        }
-    
-        
+        } 
         setpopUp(false);
+        setNote(true);
     }
   return (
     <div>

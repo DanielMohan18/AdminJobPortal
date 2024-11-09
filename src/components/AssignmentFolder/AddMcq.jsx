@@ -5,9 +5,12 @@ import { useRecoilState } from 'recoil';
 import PopAtom from '../../atoms/PopAtom';
 import AssignmentAtom from '../../atoms/AssignmentAtom';
 import JobAtom from '../../atoms/JobAtom';
+import NoteAtom from '../../atoms/NoteAtom';
 
 const AddMcq = () => {
   
+  const [note,setNote]=useRecoilState(NoteAtom);
+
   const job =useRecoilState(JobAtom)
   
   const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom)  
@@ -43,7 +46,10 @@ const AddMcq = () => {
       return;
     }
 
-    const questionExists = assignmentDetails.filter(res=>res.question===question);
+    const exsistingdata=assignmentDetails.filter(res=>res.jobTitle===job[0]);
+  
+    const questionExists = exsistingdata.filter(res=>res.question===question);
+  
     if (questionExists.length>0) {
       alert('This question already exists in the assignments.');
       return;
@@ -62,16 +68,15 @@ const AddMcq = () => {
     const Updatedmcq = [...assignmentDetails,newQuestion];
     setAssignmentdetails(Updatedmcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(Updatedmcq));
-    try {
-      const response = await axios.post('http://localhost:3040/assignments', newQuestion);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-      alert("Failed to save.");
-    }
-    
 
-    console.log(newQuestion);
+    // try {
+    //   const response = await axios.post('http://localhost:3040/assignments', newQuestion);
+    //   console.log(response.data);
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("Failed to save.");
+    // }
+    setNote(true);
     setPop(!pop);
   };
 

@@ -6,107 +6,124 @@ import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaArrowRight } from "react-icons/fa6";
 import CandidateAtom from '../atoms/CandidateAtom';
+import NotificationM from './Notification';
+import EditAtom from '../atoms/EditAtom';
 
 
 const EditJob = () => {
 
   const { id } = useParams();
   const navigate=useNavigate();
+
   const [Jobdetails, setJobdetails] = useRecoilState(UserAtom);
   const [candidateDetails,setCandidateDetails] =useRecoilState(CandidateAtom);
+  
+  const [note,setNote]=useRecoilState(EditAtom);
 
   const filteredDetails = Jobdetails.find(job => job.id === parseInt(id));
+  const filteredCandidate=candidateDetails.filter(job=>job.jobId===filteredDetails.id);
 
   const [jobTitle,setjobTitle] =useState(filteredDetails?.jobTitle||' ');
   const [jobDescription,setjobDescription] =useState(filteredDetails?.jobDescription || ' ');
   const [positionsOpen,setpositionsOpen] =useState(filteredDetails?.positionsOpen || ' ');
   const [employmentType,setemploymentType] =useState(filteredDetails?.employmentType || ' ');
   const [salaryLPA,setsalaryLPA] =useState(filteredDetails?.salaryLPA || ' ');
+  const [context,setContext]=useState('Saved Successfully');
 
 //   NewData
-
   const updatedJob = {
-    id: `${id}`,
+    id: parseInt(id),
     jobTitle,
     jobDescription,
-    numCandidatesApplied: filteredDetails.numCandidatesApplied,
+    numCandidatesApplied: filteredCandidate.length,
     positionsOpen,
     employmentType,
     salaryLPA
   };
+      
+    //For Save
+    const handleSave = (e) => {  
+     e.preventDefault(); 
+    
+    //Local Storage  
+    const updatedJobList =Jobdetails.map(res=>res.id === updatedJob.id ? updatedJob : res); 
+    setJobdetails(updatedJobList);
+    localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
 
-
-  // useEffect(()=>{
-  //   console.log(Jobdetails);
-  //   console.log(localStorage.getItem('Jobdetails'));
-  // },[Jobdetails]);
-
-//For Save
-  const handleSave = (e) => {
-    e.preventDefault();
-    setJobdetails(prevState => {
-      const updatedJobList = prevState.map(job => 
-        job.id === updatedJob.id ? updatedJob : job
-      );
-      localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
-      return updatedJobList; 
-    });
-    alert("Job details saved!");
+    // for Server
+    // setJobdetails(prevState => {
+    //   const updatedJobList = prevState.map(job => 
+    //     job.id === updatedJob.id ? updatedJob : job
+    //   );
+    //   localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
+    //   return updatedJobList; 
+    // });
+    setNote(true);
   };
 
 //For Update
     const handleUpdate= async (e)=>{
         e.preventDefault();
-        try{
-            const response = await axios.put(`http://localhost:3040/jobs/${id}`,updatedJob);
-        }catch(err){
-            console.error('Error Updating job to API:', err);
-            alert('Failed to Update job to server');
-        }
-        navigate('/job')
+        // try{
+        //     const response = await axios.put(`http://localhost:3040/jobs/${id}`,updatedJob);
+        // }catch(err){
+        //     console.error('Error Updating job to API:', err);
+        //     alert('Failed to Update job to server');
+        // }
+
+      alert('Only For Server!');
+       navigate('/job');
     }
 
 //For Delete
- 
- 
-// console.log("Jobs to Update:", JSON.stringify(jobsToUpdate, null, 2));
-// console.log("Previous Candidates:", JSON.stringify(prevCandidates, null, 2));
-
-
 const handleDelete = async () => {
- 
+  console.log(id);
+  
+  //Local Storage
+  const updatedJobList =Jobdetails.filter(res=>res.id !== updatedJob.id); 
+  setJobdetails(updatedJobList);
+  localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
 
-    try{
-      const response=await axios.delete(`http://localhost:3040/jobs/${id}`);
-      console.log(response.data);
-      const jobsToUpdate = Jobdetails.filter(job => job.id!==id);
-      setJobdetails(jobsToUpdate);
-      localStorage.setItem('Jobdetails',JSON.stringify(jobsToUpdate));
-      console.log('added');
-    }catch(err){
-      console.log(err);
-      alert("Error deleting");
-    }
+  const updatedCandidList=candidateDetails.filter(res=>res.jobid!==updatedJob.id);
+  setCandidateDetails(updatedCandidList);
+  localStorage.setItem('Candidatedetails',JSON.stringify(updatedCandidList));
+
+  alert('Deleted Succuessfully');
+  navigate('/job');
+
+
+    //Server
+    // try{
+    //   const response=await axios.delete(`http://localhost:3040/jobs/${id}`);
+    //   console.log(response.data);
+    //   const jobsToUpdate = Jobdetails.filter(job => job.id!==id);
+    //   setJobdetails(jobsToUpdate);
+    //   localStorage.setItem('Jobdetails',JSON.stringify(jobsToUpdate));
+    //   console.log('added');
+    // }catch(err){
+    //   console.log(err);
+    //   alert("Error deleting");
+    // }
      
-     try {
-      const response = await axios.get(`http://localhost:3040/candidates?jobId=${id}`);
-      const candidatesToDelete = response.data;
-      console.log(candidatesToDelete);
+    //  try {
+    //   const response = await axios.get(`http://localhost:3040/candidates?jobId=${id}`);
+    //   const candidatesToDelete = response.data;
+    //   console.log(candidatesToDelete);
       
-      for (const candidate of candidatesToDelete) {
-        await axios.delete(`http://localhost:3040/candidates?cid=${candidate.cid}`);
-      }
-      const prevCandidates = candidateDetails.filter(candidate => candidate.jobId !==id);
-      setCandidateDetails(prevCandidates);
-      localStorage.setItem('Candidatedetails',prevCandidates);
-      console.log('All candidates associated with jobId deleted successfully.')
-      console.log('Jobs and candidates updated successfully.');
-      alert("Delete and updates were successful.");
-      navigate('/job');
-    } catch (error) {
-      console.error('Error during delete and update:', error);
-      alert("Delete failed!");
-    }
+    //   for (const candidate of candidatesToDelete) {
+    //     await axios.delete(`http://localhost:3040/candidates?cid=${candidate.cid}`);
+    //   }
+    //   const prevCandidates = candidateDetails.filter(candidate => candidate.jobId !==id);
+    //   setCandidateDetails(prevCandidates);
+    //   localStorage.setItem('Candidatedetails',prevCandidates);
+    //   console.log('All candidates associated with jobId deleted successfully.')
+    //   console.log('Jobs and candidates updated successfully.');
+    //   alert("Delete and updates were successful.");
+    //   navigate('/job');
+    // } catch (error) {
+    //   console.error('Error during delete and update:', error);
+    //   alert("Delete failed!");
+    // }
   };
   
   
@@ -114,7 +131,8 @@ const handleDelete = async () => {
   
 
   return (
-    <div className="w-full max-h-screen  flex justify-center items-center bg-gray-100">
+    <div className="w-full max-h-screen  flex justify-center items-center bg-gray-100 relative">
+      {note?<NotificationM context={context}/>:null}
       <div className="container max-h-screen overflow-y-auto mx-2 sm:mx-auto bg-white border border-gray-200 rounded-lg shadow-lg p-8 sm:w-10/12 lg:w-8/12 xl:w-6/12">
         
         <div className="space-y-6">

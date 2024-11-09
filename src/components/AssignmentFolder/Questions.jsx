@@ -9,6 +9,7 @@ import PopAtom from '../../atoms/PopAtom';
 import { useNavigate } from 'react-router-dom';
 import JobAtom from '../../atoms/JobAtom';
 import NoMcq from './NoMcq';
+import NotificationM from '../Notification';
 
 const Questions = () => {
   const navigate=useNavigate();
@@ -18,16 +19,16 @@ const Questions = () => {
   const filteredData = assignmentDetails.filter(res => res.jobTitle === job);
   console.log(filteredData);
   return (
-    <div className="flex flex-col gap-4 p-6 w-full ">
-
+    <div className="flex flex-col gap-4 p-6 w-full relative">
+     <NotificationM context={"Added Successfully"}/> 
      {(pop)? <AddMcq />:null}
 
       <div className="font-bold text-2xl">
         {job ? job : "Select"} 
         <span className="text-gray-400"> Assignment</span>
       </div>
-
-      <div  className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-160px)] p-2">
+      
+      <div  className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-160px)] p-2 relative">
         {job ? (
            (filteredData.length>0)?
            filteredData.map((res, index) => (

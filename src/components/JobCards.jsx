@@ -4,34 +4,42 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import UserAtom from '../atoms/UserAtom';
 import axios from 'axios';
-import Popup from './Popup';
+import Nojob from './Nojob';
 
 const JobCards = () => {
 
     const navigate=useNavigate();
-    const[Jobdetails,setJobdetails] = useRecoilState(UserAtom);
+    const[Jobdetails,setJobdetails] = useRecoilState(UserAtom);    
 
-    
     useEffect(()=>{
-        const dataFetch = async () => {
-            try {
-              const response = await axios.get('http://localhost:3040/jobs');
-              if (response.data) {
-                setJobdetails(response.data);
-                localStorage.setItem('Jobdetails', JSON.stringify(response.data)); 
-              }
-            } catch (err) {
-              console.error("Failed to fetch details", err);
-            }
-          };
-          dataFetch();
-    },[setJobdetails])
+      const data=JSON.parse(localStorage.getItem('Jobdetails'));
+      (data)?setJobdetails(data):[];
+    },[setJobdetails]);
+  
+    //Server  
+  // useEffect(()=>{
+  //       const dataFetch = async () => {
+  //           try {
+  //             const response = await axios.get('http://localhost:3040/jobs');
+  //             if (response.data) {
+  //               setJobdetails(response.data);
+  //               localStorage.setItem('Jobdetails', JSON.stringify(response.data)); 
+  //             }
+  //           } catch (err) {
+  //             console.error("Failed to fetch details", err);
+  //           }
+  //         };
+  //         dataFetch();
+         
+       
+  //         // const data=JSON.parse(localStorage.getItem('Jobdetails'));
+  //         // setJobdetails(data);
+  //   },[setJobdetails])
 
-
+console.log(Jobdetails);
   return (
     <div>
-       
-      <div data-aos="fade-in" className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[calc(100vh-100px)] overflow-y-auto'>
+       {(Jobdetails.length>0) ? <div data-aos="fade-in" className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[calc(100vh-100px)]  md:p-4 overflow-y-auto'>
         {/* cardtemplate */}
        {Jobdetails.map((res,index)=>(
     
@@ -67,6 +75,8 @@ const JobCards = () => {
        
        
       </div>
+      :
+       <Nojob />}
     </div>
   )
 }

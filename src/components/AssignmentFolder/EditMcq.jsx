@@ -5,10 +5,13 @@ import AssignmentAtom from '../../atoms/AssignmentAtom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaArrowRight } from 'react-icons/fa6';
+import NotificationM from '../Notification';
+import NoteAtom from '../../atoms/NoteAtom';
 
 const EditMcq = () => {
   const navigate=useNavigate();
   const location = useLocation();
+  const [note,setNote]=useRecoilState(NoteAtom);
   const [assignmentDetails, setAssignmentdetails] = useRecoilState(AssignmentAtom);
   const assignmentId = location.pathname.split('/')[2];
   const filterdata = assignmentDetails.filter(mcq => mcq.id === parseInt(assignmentId));
@@ -48,43 +51,57 @@ const EditMcq = () => {
     const updatedMcq=[...assignmentDetails,newdata]
     setAssignmentdetails(updatedMcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(updatedMcq));
-    alert('Details Saved.')
+    setNote(true);
+   
   };
 
   const handleUpdate = async(e) => {
-    e.preventDefault()
-    try{
-      const response = await axios.put(`http://localhost:3040/assignments/${filterdata[0].id}`,newdata)
-      if(response.status===200){
-        alert('Success');
-      }
-    }catch(err){
-         console.log(err);
-         alert("failed to update server!") 
-    }
+    e.preventDefault();
+
+    //Server
+    // try{
+    //   const response = await axios.put(`http://localhost:3040/assignments/${filterdata[0].id}`,newdata)
+    //   if(response.status===200){
+    //     alert('Success');
+    //   }
+    // }catch(err){
+    //      console.log(err);
+    //      alert("failed to update server!") 
+    // }
+   alert('Only for server!');
    navigate('/assignment');
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.delete(`http://localhost:3040/assignments/${filterdata[0].id}`);
-      if (response.status === 200) {
-        const jobsToUpdate = assignmentDetails.filter(job => job.id !== filterdata[0].id);
-        setAssignmentdetails(jobsToUpdate);
-        localStorage.setItem('Assignmentdetails', JSON.stringify(jobsToUpdate));
-        alert('Deleted Successfully!');
-        navigate('/assignment'); 
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Error deleting");
-    }
+    
+    //LocalStorage
+      const jobsToUpdate = assignmentDetails.filter(job => job.id !== filterdata[0].id);
+      setAssignmentdetails(jobsToUpdate);
+      localStorage.setItem('Assignmentdetails', JSON.stringify(jobsToUpdate));
+      alert("Deleted Successfully");
+      navigate('/assignment');
+
+    //Server    
+    // try {
+    //   const response = await axios.delete(`http://localhost:3040/assignments/${filterdata[0].id}`);
+    //   if (response.status === 200) {
+    //     const jobsToUpdate = assignmentDetails.filter(job => job.id !== filterdata[0].id);
+    //     setAssignmentdetails(jobsToUpdate);
+    //     localStorage.setItem('Assignmentdetails', JSON.stringify(jobsToUpdate));
+    //     alert('Deleted Successfully!');
+    //     navigate('/assignment'); 
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("Error deleting");
+    // }
   };
   
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 relative">
+      <NotificationM context={"Saved Successfully"}/>
       <div className="w-full mx-10 lg:mx-auto max-w-4xl bg-white border p-8 rounded-lg shadow-xl">
         <div className="flex justify-end mb-4">
           <FaArrowRight
