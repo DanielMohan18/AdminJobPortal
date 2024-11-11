@@ -27,8 +27,8 @@ const Questions = () => {
   console.log(filteredData);
   return (
     <div className="flex flex-col gap-4 p-6 w-full relative">
-      {note && <NotificationM context="Added Successfully" top={2} />}
-      {edit && <NotificationM context="Deleted" top={2} />}
+      {/* {note && <NotificationM context="Added Successfully" top={2} />}
+      {edit && <NotificationM context="Deleted" top={2} />} */}
       {pop && <AddMcq />}
 
       <div className="font-bold text-2xl">

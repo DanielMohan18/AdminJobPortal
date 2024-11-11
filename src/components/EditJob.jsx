@@ -91,11 +91,11 @@ const handleDelete = async () => {
    
     <div className="w-full h-[calc(100vh-70px)]  flex justify-center items-center bg-gray-100 relative">
       <div className="overflow-y-auto sm:mx-4 my-6 h-[560px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg py-6 px-10 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
-      {note?<NotificationM context={context} top={2} />:null} 
+      {/* {note?<NotificationM context={context} top={2} />:null}  */}
         <div className="space-y-3 h-full">
           <div 
             className='flex justify-between sm:justify-end'>
-             {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 block sm:hidden'/>:<div></div>}   
+             {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 '/>:<div></div>}   
             <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180 ' onClick={()=>{navigate('/job')}}/>
         </div>
             

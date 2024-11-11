@@ -29,13 +29,13 @@ const YourComponent = () => {
       {/* Main content area */}
       <div className="sm:w-10/12 w-full relative">
         
-        {note?
+        {/* {note?
         <NotificationM context={"Added Successfully"} top={2}/>
         :null}
         
         {edit?
         <NotificationM context={"Deleted"} top={2} />
-        :null}
+        :null} */}
         
         {popUp? <Popup popUp={popUp} setpopUp={setpopUp}/> :null}   
         <JobCards  />
