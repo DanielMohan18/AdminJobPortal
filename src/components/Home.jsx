@@ -15,8 +15,8 @@ const Home = () => {
   };
 
   return (
-    <div className='h-screen w-screen'>
-      <div style={BackImg} className='grid grid-cols-1 md:grid-cols-2 gap-4 relative'>
+    <div  className='h-[calc(100vh+40px)] w-screen '>
+      <div style={BackImg} className='grid grid-cols-1 md:grid-cols-2 gap-4 relative '>
 
         {/* Left Div */}
         <div className='flex items-center justify-center'>

@@ -32,6 +32,7 @@ const Popup = ({ popUp, setpopUp }) => {
             localStorage.setItem('Jobdetails', JSON.stringify(UpdateJobs));
             setpopUp(false);
             setNote(true);
+            setTimeout(()=>setNote(false),1500);
         } else {
             alert("Enter Something!!");
         }

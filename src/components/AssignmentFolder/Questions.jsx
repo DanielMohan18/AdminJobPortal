@@ -19,7 +19,7 @@ const Questions = () => {
   const pop = useRecoilValue(PopAtom);
   const note = useRecoilValue(NoteAtom);
   const edit = useRecoilValue(EditAtom);
-  console.log(job);
+ 
  
 
   const assignmentDetails = useRecoilValue(AssignmentAtom);
@@ -32,7 +32,7 @@ const Questions = () => {
       {pop && <AddMcq />}
 
       <div className="font-bold text-2xl">
-        {job ? job.jobTitle : "Select"} 
+        {job ? String(job) : "Select"} 
         <span className="text-gray-400"> Assignment</span>
       </div>
 

@@ -76,7 +76,9 @@ const EditMcq = () => {
     setAssignmentdetails(updatedMcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(updatedMcq));
     setNote(true);
+    setTimeout(()=>setNote(false),1500);
     setSave(true);
+    setTimeout(()=>setSave(false),1500);
     setJob(name);
   };
 
@@ -94,9 +96,8 @@ const EditMcq = () => {
       setAssignmentdetails(jobsToUpdate);
       localStorage.setItem('Assignmentdetails', JSON.stringify(jobsToUpdate));
       setedit(true);
+      setTimeout(()=>setedit(false),1500);
       navigate('/assignment');
-
-   
   };
   
 

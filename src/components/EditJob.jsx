@@ -45,18 +45,6 @@ const EditJob = () => {
     salaryLPA
   };
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-        isFirstRender.current = false; 
-        return; 
-      }
-    if (note || edit ) {
-        const timer = setTimeout(() => {
-        setSave(false);
-        }, 2000);
-   return () => clearTimeout(timer);
-  }
-  }, [save,setSave]);
       
     //For Save
     const handleSave = (e) => {  
@@ -66,7 +54,9 @@ const EditJob = () => {
     localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
 
     setSave(true);
+    setTimeout(()=>setSave(false),1500);
     setNote(true);
+    setTimeout(() => setNote(false), 1500);
   };
 
      //For Update
@@ -88,8 +78,8 @@ const handleDelete = async () => {
   localStorage.setItem('Candidatedetails',JSON.stringify(updatedCandidList));
 
   setedit(true);
+  setTimeout(()=>setedit(false),1500);
   navigate('/job');
-
   };
   
   
@@ -97,11 +87,11 @@ const handleDelete = async () => {
   
 
   return (
+    <>
+   
     <div className="w-full h-[calc(100vh-70px)]  flex justify-center items-center bg-gray-100 relative">
-      
-      {note?<NotificationM context={context} top={2} />:null}
       <div className="overflow-y-auto sm:mx-4 my-6 h-[560px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg py-6 px-10 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
-        
+      {note?<NotificationM context={context} top={2} />:null} 
         <div className="space-y-3 h-full">
           <div 
             className='flex justify-between sm:justify-end'>
@@ -132,6 +122,7 @@ const handleDelete = async () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

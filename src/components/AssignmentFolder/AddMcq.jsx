@@ -69,6 +69,7 @@ const AddMcq = () => {
     setAssignmentdetails(Updatedmcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(Updatedmcq));
     setNote(true);
+    setTimeout(()=>setNote(false),1500);
     setPop(!pop);
   };
 
