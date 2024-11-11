@@ -68,7 +68,7 @@ const Apply = () => {
 
     return (
             <div>
-              <div className="w-full max-w-6xl max-h-[calc(100vh-95px)] overflow-y-auto sm:mx-auto border border-gray-300 rounded-md shadow-lg bg-white my-10 items-center justify-center ">
+              <div className="w-full max-w-6xl h-[calc(100vh-75px)] sm:max-h-[calc(100vh-95px)] overflow-y-auto sm:mx-auto border border-gray-300 rounded-md shadow-lg bg-white sm:my-10 items-center justify-center ">
                 <div className="flex flex-col sm:flex-row justify-between gap-3 p-6 border-b border-gray-300">
                   {add ? (
                     <Sunform setAdd={setAdd} />

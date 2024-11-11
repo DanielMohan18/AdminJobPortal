@@ -10,6 +10,7 @@ import NoteAtom from '../atoms/NoteAtom';
 import EditjobInfo from './EditjobInfo';
 import EditAtom from '../atoms/EditAtom';
 import { DiYii } from "react-icons/di";
+import { Label } from 'flowbite-react';
 
 const EditJob = () => {
   
@@ -99,20 +100,20 @@ const handleDelete = async () => {
     <div className="w-full h-[calc(100vh-70px)]  flex justify-center items-center bg-gray-100 relative">
       
       {note?<NotificationM context={context} top={2} />:null}
-      <div className="overflow-y-auto sm:mx-4 my-6 h-[720px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg p-8 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
+      <div className="overflow-y-auto sm:mx-4 my-6 h-[560px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg py-6 px-10 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
         
-        <div className="space-y-6 h-full">
+        <div className="space-y-3 h-full">
           <div 
             className='flex justify-between sm:justify-end'>
              {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 block sm:hidden'/>:<div></div>}   
             <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180 ' onClick={()=>{navigate('/job')}}/>
         </div>
             
-            <EditjobInfo type={"text"} name={"jobTitle"} placeholder={"Enter job title"} value={jobTitle} setjobTitle={setjobTitle}/>
-            <EditjobInfo type={"text"} name={"jobDescription"} placeholder={"Enter job description"} value={jobDescription} setjobTitle={setjobDescription} /> 
-            <EditjobInfo type={"number"} name={"positionsOpen"} placeholder={"Enter number of positions"} value={positionsOpen} setjobTitle={setpositionsOpen} /> 
-            <EditjobInfo type={"text"} name={"employmentType"} placeholder={"Enter employment type"} value={employmentType} setjobTitle={setemploymentType} /> 
-            <EditjobInfo type={"text"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
+            <EditjobInfo head={"JobTitle:"} type={"text"} name={"jobTitle"} placeholder={"Enter job title"} value={jobTitle} setjobTitle={setjobTitle}/>
+            <EditjobInfo head={"JobDescription:"} type={"text"} name={"jobDescription"} placeholder={"Enter job description"} value={jobDescription} setjobTitle={setjobDescription} /> 
+            <EditjobInfo head={"Positions Opens:"} type={"number"} name={"positionsOpen"} placeholder={"Enter number of positions"} value={positionsOpen} setjobTitle={setpositionsOpen} /> 
+            <EditjobInfo head={"Emplyment-Type:"} type={"text"} name={"employmentType"} placeholder={"Enter employment type"} value={employmentType} setjobTitle={setemploymentType} /> 
+            <EditjobInfo head={"CTC:"} type={"text"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
     
 
           <div className="flex gap-4 justify-center mx-auto ">
