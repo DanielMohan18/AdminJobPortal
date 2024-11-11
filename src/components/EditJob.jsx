@@ -94,7 +94,7 @@ const handleDelete = async () => {
       {/* {note?<NotificationM context={context} top={2} />:null}  */}
         <div className="space-y-3 h-full">
           <div 
-            className='flex justify-between sm:justify-end'>
+            className='flex justify-between '>
              {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 '/>:<div></div>}   
             <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180 ' onClick={()=>{navigate('/job')}}/>
         </div>

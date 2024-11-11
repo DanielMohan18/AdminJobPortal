@@ -105,7 +105,7 @@ const EditMcq = () => {
     <div className="flex justify-center items-center h-[calc(100vh-70px)] bg-gray-100 relative ">
       {/* <NotificationM context={"Saved Successfully"} top={2}/> */}
       <div className="w-full mx-2 sm:mx-10 lg:mx-auto max-w-4xl bg-white border p-8 rounded-lg shadow-xl overflow-y-auto">
-        <div className="flex justify-between md:justify-end mb-4">
+        <div className="flex justify-between mb-4">
           {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 '/>:<div></div>}
           <FaArrowRight
             onClick={()=>{navigate('/assignment')}}
