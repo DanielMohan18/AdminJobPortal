@@ -1,14 +1,12 @@
-import React, { useState,useEffect } from 'react'
+import React, { useEffect } from 'react'
 import HeaderA from './HeaderA'
 import SidebarA from './SidebarA'
 import Questions from './Questions'
 import axios from 'axios'
-import { useRecoilCallback, useRecoilState } from 'recoil'
+import {  useRecoilState } from 'recoil'
 import AssignmentAtom from '../../atoms/AssignmentAtom'
-import JobAtom from '../../atoms/JobAtom'
 const Assignment = () => {
-  
-   const [job,setJob] =useRecoilState(JobAtom);  
+   
    const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom);
 
    useEffect(()=>{
@@ -29,12 +27,13 @@ const Assignment = () => {
   return (
     <div>
        <HeaderA />
-       <div className='flex flex-col md:flex-row w-full h-full '>
+       <div className='flex flex-col md:flex-row w-full h-[calc(100vh-115px)] '>
          <SidebarA  />
          <Questions />
        </div>
     </div>
   )
 }
+
 
 export default Assignment

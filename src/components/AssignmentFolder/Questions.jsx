@@ -6,21 +6,30 @@ import { ImCross } from "react-icons/im";
 import { FaFireAlt } from "react-icons/fa";
 import AddMcq from './AddMcq';
 import PopAtom from '../../atoms/PopAtom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import JobAtom from '../../atoms/JobAtom';
 import NoMcq from './NoMcq';
 import NotificationM from '../Notification';
+import NoteAtom from '../../atoms/NoteAtom';
+import EditAtom from '../../atoms/EditAtom';
 
 const Questions = () => {
   const navigate=useNavigate();
   const job=useRecoilValue(JobAtom);
   const pop =useRecoilValue(PopAtom);
+  const note=useRecoilValue(NoteAtom)
+  const edit=useRecoilValue(EditAtom);
+
   const assignmentDetails = useRecoilValue(AssignmentAtom);
   const filteredData = assignmentDetails.filter(res => res.jobTitle === job);
-  console.log(filteredData);
   return (
     <div className="flex flex-col gap-4 p-6 w-full relative">
-     <NotificationM context={"Added Successfully"}/> 
+     {note?
+        <NotificationM context={"Added Successfully"} top={2} />
+       :null}
+       {edit?
+        <NotificationM context={"Deleted"} top={2} />
+       :null}
      {(pop)? <AddMcq />:null}
 
       <div className="font-bold text-2xl">
@@ -28,7 +37,7 @@ const Questions = () => {
         <span className="text-gray-400"> Assignment</span>
       </div>
       
-      <div  className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-160px)] p-2 relative">
+      <div  className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-200px)] p-2 relative">
         {job ? (
            (filteredData.length>0)?
            filteredData.map((res, index) => (
@@ -39,36 +48,36 @@ const Questions = () => {
               <div className="flex flex-col gap-2">
                 
                 <div className={` rounded-lg border ${(res.opt1.bool ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}`}>
-                   <div className='p-3 flex justify-between items-center'>
+                   <div className='p-3 flex justify-between items-center gap-2'>
                     <div>1.{res.opt1.text}</div>
-                    {res.opt1.bool? <FaFireAlt className='text-green-900' /> : <ImCross className='text-red-900'/> }
+                    {res.opt1.bool? <FaFireAlt className=' hidden sm:block text-green-900 text-sm sm:text-lg' /> : <ImCross className='hidden sm:block text-red-900 text-sm md:text-lg'/> }
                    </div>
                 </div>
 
                 <div className={` rounded-lg border ${(res.opt2.bool ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}`}>
                    <div className='p-3 flex justify-between items-center'>
                     <div>2.{res.opt2.text}</div>
-                    {res.opt2.bool? <FaFireAlt className='text-green-900' /> : <ImCross className='text-red-900'/> }
+                    {res.opt2.bool? <FaFireAlt className=' hidden sm:block text-green-900 text-sm sm:text-lg' /> : <ImCross className='hidden sm:block text-red-900 text-sm md:text-lg'/> }
                    </div>
                 </div>
 
                 <div className={` rounded-lg border ${(res.opt3.bool ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}`}>
                    <div className='p-3 flex justify-between items-center'>
                     <div>3.{res.opt3.text}</div>
-                    {res.opt3.bool? <FaFireAlt className='text-green-900' /> : <ImCross className='text-red-900'/> }
+                    {res.opt3.bool? <FaFireAlt className=' hidden sm:block text-green-900 text-sm sm:text-lg' /> : <ImCross className='hidden sm:block text-red-900 text-sm md:text-lg'/> }
                    </div>
                 </div>
 
                 <div className={` rounded-lg border ${(res.opt4.bool ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}`}>
                    <div className='p-3 flex justify-between items-center'>
                     <div>4.{res.opt4.text}</div>
-                    {res.opt4.bool? <FaFireAlt className='text-green-900' /> : <ImCross className='text-red-900'/> }
+                    {res.opt4.bool? <FaFireAlt className=' hidden sm:block text-green-900 text-sm sm:text-lg' /> : <ImCross className='hidden sm:block text-red-900 text-sm md:text-lg'/> }
                    </div>
                 </div>
 
               </div>
               <div className="flex justify-center mt-6">
-                <Button onClick={()=>{navigate(`/editmcq/${res.id}`)}} color="success" className="bg-green-500 hover:bg-green-600 text-white w-32">
+                <Button onClick={()=>{navigate(`/editmcq/${res.id}/${job}`)}} color="success" className="bg-green-500 hover:bg-green-600 text-white w-32">
                   Edit
                 </Button>
               </div>

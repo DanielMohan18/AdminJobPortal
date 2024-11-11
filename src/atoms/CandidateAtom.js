@@ -5,13 +5,13 @@ const CandidateAtom =atom ({
     default: JSON.parse(localStorage.getItem('Candidatedetails')) || [{
       "cid": 21456,
       "jobId": 48293,
-      "candidateName": "Alice Johnson",
+      "candidateName": "Sai",
       "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-12",
-      "status": "on Hold",
+      "status": "Selected",
       "profile": {
-        "name": "Alice Johnson",
-        "email": "alice.johnson@example.com",
+        "name": "Sai",
+        "email": "Sai@example.com",
         "contact": "+1234567890",
         "skills": [
           "JavaScript",
@@ -24,13 +24,13 @@ const CandidateAtom =atom ({
     {
       "cid": 35902,
       "jobId": 48293,
-      "candidateName": "Bob Smith",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Chaitu",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-10",
-      "status": "Shortlisted",
+      "status": "Selected",
       "profile": {
-        "name": "Bob Smith",
-        "email": "bob.smith@example.com",
+        "name": "Chaitu",
+        "email": "Chaitu@example.com",
         "contact": "+1234567891",
         "skills": [
           "Java",
@@ -43,13 +43,13 @@ const CandidateAtom =atom ({
     {
       "cid": 67834,
       "jobId": 48293,
-      "candidateName": "Charlotte Green",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Nandu",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-15",
       "status": "Shortlisted",
       "profile": {
-        "name": "Charlotte Green",
-        "email": "charlotte.green@example.com",
+        "name": "Nandu",
+        "email": "Nandu@example.com",
         "contact": "+1234567894",
         "skills": [
           "Python",
@@ -62,13 +62,13 @@ const CandidateAtom =atom ({
     {
       "cid": 48267,
       "jobId": 48293,
-      "candidateName": "David Williams",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Madhan",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-17",
-      "status": "On Hold",
+      "status": "Shorlisted",
       "profile": {
-        "name": "David Williams",
-        "email": "david.williams@example.com",
+        "name": "Madhan",
+        "email": "Madhan@example.com",
         "contact": "+1234567895",
         "skills": [
           "JavaScript",
@@ -81,13 +81,13 @@ const CandidateAtom =atom ({
     {
       "cid": 19574,
       "jobId": 57201,
-      "candidateName": "Emma Lee",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Ramu",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-14",
-      "status": "On Hold",
+      "status": "Selected",
       "profile": {
-        "name": "Emma Lee",
-        "email": "emma.lee@example.com",
+        "name": "Ramu",
+        "email": "Ramu@example.com",
         "contact": "+1234567892",
         "skills": [
           "Python",
@@ -100,13 +100,13 @@ const CandidateAtom =atom ({
     {
       "cid": 30291,
       "jobId": 57201,
-      "candidateName": "Liam Brown",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Prashanth",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-13",
       "status": "Shortlisted",
       "profile": {
-        "name": "Liam Brown",
-        "email": "liam.brown@example.com",
+        "name": "Prashanth",
+        "email": "Prashanth@example.com",
         "contact": "+1234567893",
         "skills": [
           "SQL",
@@ -119,13 +119,13 @@ const CandidateAtom =atom ({
     {
       "cid": 58124,
       "jobId": 57201,
-      "candidateName": "Olivia Garcia",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Rajesh",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-16",
       "status": "Rejected",
       "profile": {
-        "name": "Olivia Garcia",
-        "email": "olivia.garcia@example.com",
+        "name": "Rajesh",
+        "email": "Rajesh@example.com",
         "contact": "+1234567896",
         "skills": [
           "Data Mining",
@@ -138,13 +138,13 @@ const CandidateAtom =atom ({
     {
       "cid": 73581,
       "jobId": 57201,
-      "candidateName": "Noah Martinez",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Lenin",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-18",
       "status": "in Progress",
       "profile": {
-        "name": "Noah Martinez",
-        "email": "noah.martinez@example.com",
+        "name": "Lenin",
+        "email": "Lenin@example.com",
         "contact": "+1234567897",
         "skills": [
           "Statistics",
@@ -157,13 +157,13 @@ const CandidateAtom =atom ({
     {
       "cid": 48903,
       "jobId": 57201,
-      "candidateName": "Sophia Hernandez",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Daniel",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-20",
       "status": "Pending",
       "profile": {
-        "name": "Sophia Hernandez",
-        "email": "sophia.hernandez@example.com",
+        "name": "Daniel",
+        "email": "Daniel@example.com",
         "contact": "+1234567898",
         "skills": [
           "Excel",
@@ -176,13 +176,13 @@ const CandidateAtom =atom ({
     {
       "cid": 64120,
       "jobId": 57201,
-      "candidateName": "James Wilson",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Navaneeth",
+      "resumeLink":"https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-21",
       "status": "Shortlisted",
       "profile": {
-        "name": "James Wilson",
-        "email": "james.wilson@example.com",
+        "name": "Navaneeth",
+        "email": "Navaneeth@example.com",
         "contact": "+1234567899",
         "skills": [
           "R",
@@ -195,13 +195,13 @@ const CandidateAtom =atom ({
     {
       "cid": 21894,
       "jobId": 57201,
-      "candidateName": "Mia Lopez",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Karthik",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-22",
       "status": "Pending",
       "profile": {
-        "name": "Mia Lopez",
-        "email": "mia.lopez@example.com",
+        "name": "Karthik",
+        "email": "Karthik@example.com",
         "contact": "+1234567810",
         "skills": [
           "Data Visualization",
@@ -214,13 +214,13 @@ const CandidateAtom =atom ({
     {
       "cid": 54932,
       "jobId": 57201,
-      "candidateName": "Benjamin Clark",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Sandeep",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-23",
       "status": "Rejected",
       "profile": {
-        "name": "Benjamin Clark",
-        "email": "benjamin.clark@example.com",
+        "name": "Sandeep",
+        "email": "Sandeep@example.com",
         "contact": "+1234567811",
         "skills": [
           "SQL",
@@ -233,13 +233,13 @@ const CandidateAtom =atom ({
     {
       "cid": 92345,
       "jobId": 61837,
-      "candidateName": "Jake Miller",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Bharath",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-24",
       "status": "Pending",
       "profile": {
-        "name": "Jake Miller",
-        "email": "jake.miller@example.com",
+        "name": "Bharath",
+        "email": "Bharath@example.com",
         "contact": "+1234567812",
         "skills": [
           "HTML",
@@ -253,13 +253,13 @@ const CandidateAtom =atom ({
     {
       "cid": 18752,
       "jobId": 61837,
-      "candidateName": "ke Mil",
-      "resumeLink": "https://placeholder.com/invalid-url.pdf",
+      "candidateName": "Nitish",
+      "resumeLink": "https://resume.io/resume-templates/simple",
       "applicationDate": "2024-10-24",
       "status": "Pending",
       "profile": {
-        "name": "ke Mil",
-        "email": "ke.mil@example.com",
+        "name": "Nitish",
+        "email": "Nitish@example.com",
         "contact": "+1234567812",
         "skills": [
           "HTML",

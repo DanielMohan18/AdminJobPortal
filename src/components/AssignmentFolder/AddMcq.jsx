@@ -68,14 +68,6 @@ const AddMcq = () => {
     const Updatedmcq = [...assignmentDetails,newQuestion];
     setAssignmentdetails(Updatedmcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(Updatedmcq));
-
-    // try {
-    //   const response = await axios.post('http://localhost:3040/assignments', newQuestion);
-    //   console.log(response.data);
-    // } catch (err) {
-    //   console.log(err);
-    //   alert("Failed to save.");
-    // }
     setNote(true);
     setPop(!pop);
   };
@@ -97,6 +89,7 @@ const AddMcq = () => {
               <div className="flex flex-col text-gray-700">
                 <label className="text-sm font-medium">Question:</label>
                 <textarea
+                  
                   className="border border-gray-300 rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
@@ -140,3 +133,11 @@ const AddMcq = () => {
 };
 
 export default AddMcq;
+
+// try {
+    //   const response = await axios.post('http://localhost:3040/assignments', newQuestion);
+    //   console.log(response.data);
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("Failed to save.");
+    // }

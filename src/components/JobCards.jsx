@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -16,35 +16,15 @@ const JobCards = () => {
       (data)?setJobdetails(data):[];
     },[setJobdetails]);
   
-    //Server  
-  // useEffect(()=>{
-  //       const dataFetch = async () => {
-  //           try {
-  //             const response = await axios.get('http://localhost:3040/jobs');
-  //             if (response.data) {
-  //               setJobdetails(response.data);
-  //               localStorage.setItem('Jobdetails', JSON.stringify(response.data)); 
-  //             }
-  //           } catch (err) {
-  //             console.error("Failed to fetch details", err);
-  //           }
-  //         };
-  //         dataFetch();
-         
-       
-  //         // const data=JSON.parse(localStorage.getItem('Jobdetails'));
-  //         // setJobdetails(data);
-  //   },[setJobdetails])
 
-console.log(Jobdetails);
   return (
     <div>
-       {(Jobdetails.length>0) ? <div data-aos="fade-in" className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[calc(100vh-100px)]  md:p-4 overflow-y-auto'>
+       {(Jobdetails.length>0) ? <div data-aos="fade-in" className='grid grid-cols-1  gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[calc(100vh-70px)] p-4  md:p-4 overflow-y-auto'>
         {/* cardtemplate */}
        {Jobdetails.map((res,index)=>(
     
            <div key={index}  data-aos-delay="100" className='p-2 flex flex-col border transform duration-200 gap-4 border-slate-100 shadow-lg py-4 hover:scale-105'>
-           <h1 className='text-2xl font bold '>{res.jobTitle}</h1>
+           <h1 onClick={()=>{navigate(`/details/${res.id}`)}}  className='text-2xl font bold cursor-pointer '>{res.jobTitle}</h1>
            <span className='font-light text-gray-400 w-full h-16'>{res.jobDescription}</span>
            
            <div className='flex justify-between px-6'>
@@ -82,3 +62,22 @@ console.log(Jobdetails);
 }
 
 export default JobCards
+
+// useEffect(()=>{
+  //       const dataFetch = async () => {
+  //           try {
+  //             const response = await axios.get('http://localhost:3040/jobs');
+  //             if (response.data) {
+  //               setJobdetails(response.data);
+  //               localStorage.setItem('Jobdetails', JSON.stringify(response.data)); 
+  //             }
+  //           } catch (err) {
+  //             console.error("Failed to fetch details", err);
+  //           }
+  //         };
+  //         dataFetch();
+         
+       
+  //         // const data=JSON.parse(localStorage.getItem('Jobdetails'));
+  //         // setJobdetails(data);
+  //   },[setJobdetails])

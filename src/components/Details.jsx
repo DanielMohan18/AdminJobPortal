@@ -1,32 +1,51 @@
 import React from 'react';
 import CandidateList from './CandidateList';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue} from 'recoil';
 import UserAtom from '../atoms/UserAtom';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
+import CandidateAtom from '../atoms/CandidateAtom';
+import { ArrowLeft } from 'lucide-react';
+import { FaRegUserCircle } from "react-icons/fa";
+
 
 const Details = () => {
-    const jobDetails = useRecoilValue(UserAtom);
-    const { id } = useParams(); 
-    const filteredDetails = jobDetails.filter(candidate => candidate.id === parseInt(id));
+  const navigate = useNavigate();
+  const jobDetails = useRecoilValue(UserAtom);
+  const candidateDetails = useRecoilValue(CandidateAtom);
+  const { id } = useParams();
+  
+  const filteredDetails = jobDetails.find(candidate => candidate.id === parseInt(id));
+  const candidateData = candidateDetails.filter(res => res.jobId === parseInt(id));
+  
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-6">
+     
+      <button 
+        onClick={() => navigate('/job')}
+        className="mb-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors border border-gray-300 hover:bg-red-300 p-1.5 rounded-full"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span>Back to Jobs</span>
+      </button>
+      
+      <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div data-aos="fade-down" className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+         
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            {filteredDetails?.jobTitle} Role
+          </h1>
 
-    return (
-        <div className="min-h-screen w-full bg-[#fffff] flex flex-col items-center py-8 border border-gray-100">
-            {/* Header Section */}
-            <div className="bg-white border shadow-xl rounded-lg p-8 w-11/12 max-w-4xl text-center transform transition duration-500 hover:scale-105 mb-8">
-                <h1 data-aos="fade-down" className="text-3xl md:text-4xl font-extrabold   ">
-                    {filteredDetails[0].jobTitle} Role
-                </h1>
-                <h3 data-aos="fade-down" className="text-lg md:text-2xl text-text mt-2">
-                    Total Students Applied: <span className="text-black font-semibold">{filteredDetails[0].numCandidatesApplied}</span>
-                </h3>
-            </div>
-
-            {/* Candidate List Section */}
-            <div data-aos="fade-up" data-aos-delay="250" className="w-11/12  max-w-8xl p-4 md:p-10 space-y-6 border border-gray-200 rounded-lg shadow-xl overflow-y-auto max-h-[70vh]">
-                <CandidateList />
-            </div>
+          <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg">
+            <FaRegUserCircle className="text-blue-500" />
+            <span className="text-blue-700 font-medium">
+              Total Applications: {candidateData.length}
+            </span>
+          </div>
         </div>
-    );
+      </div>
+      <CandidateList jobId={id} />
+    </div>
+  );
 };
 
 export default Details;

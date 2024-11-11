@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Label, TextInput,Alert } from "flowbite-react";
+import React, { useState, useEffect,useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import UserAtom from '../atoms/UserAtom';
 import { useParams,useNavigate } from 'react-router-dom';
@@ -7,18 +6,22 @@ import axios from 'axios';
 import { FaArrowRight } from "react-icons/fa6";
 import CandidateAtom from '../atoms/CandidateAtom';
 import NotificationM from './Notification';
+import NoteAtom from '../atoms/NoteAtom';
+import EditjobInfo from './EditjobInfo';
 import EditAtom from '../atoms/EditAtom';
-
+import { DiYii } from "react-icons/di";
 
 const EditJob = () => {
-
+  
   const { id } = useParams();
   const navigate=useNavigate();
-
+  const isFirstRender = useRef(true);
+  const [save,setSave]=useState(false);
   const [Jobdetails, setJobdetails] = useRecoilState(UserAtom);
   const [candidateDetails,setCandidateDetails] =useRecoilState(CandidateAtom);
   
-  const [note,setNote]=useRecoilState(EditAtom);
+  const [note,setNote]=useRecoilState(NoteAtom);
+  const [edit,setedit]=useRecoilState(EditAtom);
 
   const filteredDetails = Jobdetails.find(job => job.id === parseInt(id));
   const filteredCandidate=candidateDetails.filter(job=>job.jobId===filteredDetails.id);
@@ -40,45 +43,40 @@ const EditJob = () => {
     employmentType,
     salaryLPA
   };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+        isFirstRender.current = false; 
+        return; 
+      }
+    if (note || edit ) {
+        const timer = setTimeout(() => {
+        setSave(false);
+        }, 2000);
+   return () => clearTimeout(timer);
+  }
+  }, [save,setSave]);
       
     //For Save
     const handleSave = (e) => {  
      e.preventDefault(); 
-    
-    //Local Storage  
     const updatedJobList =Jobdetails.map(res=>res.id === updatedJob.id ? updatedJob : res); 
     setJobdetails(updatedJobList);
     localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
 
-    // for Server
-    // setJobdetails(prevState => {
-    //   const updatedJobList = prevState.map(job => 
-    //     job.id === updatedJob.id ? updatedJob : job
-    //   );
-    //   localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
-    //   return updatedJobList; 
-    // });
+    setSave(true);
     setNote(true);
   };
 
-//For Update
+     //For Update
     const handleUpdate= async (e)=>{
         e.preventDefault();
-        // try{
-        //     const response = await axios.put(`http://localhost:3040/jobs/${id}`,updatedJob);
-        // }catch(err){
-        //     console.error('Error Updating job to API:', err);
-        //     alert('Failed to Update job to server');
-        // }
-
       alert('Only For Server!');
-       navigate('/job');
+      navigate('/job');
     }
 
 //For Delete
-const handleDelete = async () => {
-  console.log(id);
-  
+const handleDelete = async () => {  
   //Local Storage
   const updatedJobList =Jobdetails.filter(res=>res.id !== updatedJob.id); 
   setJobdetails(updatedJobList);
@@ -88,11 +86,65 @@ const handleDelete = async () => {
   setCandidateDetails(updatedCandidList);
   localStorage.setItem('Candidatedetails',JSON.stringify(updatedCandidList));
 
-  alert('Deleted Succuessfully');
+  setedit(true);
   navigate('/job');
 
+  };
+  
+  
 
-    //Server
+  
+
+  return (
+    <div className="w-full h-[calc(100vh-70px)]  flex justify-center items-center bg-gray-100 relative">
+      
+      {note?<NotificationM context={context} top={2} />:null}
+      <div className="overflow-y-auto sm:mx-4 my-6 h-[720px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg p-8 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
+        
+        <div className="space-y-6 h-full">
+          <div 
+            className='flex justify-between sm:justify-end'>
+             {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 block sm:hidden'/>:<div></div>}   
+            <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180 ' onClick={()=>{navigate('/job')}}/>
+        </div>
+            
+            <EditjobInfo type={"text"} name={"jobTitle"} placeholder={"Enter job title"} value={jobTitle} setjobTitle={setjobTitle}/>
+            <EditjobInfo type={"text"} name={"jobDescription"} placeholder={"Enter job description"} value={jobDescription} setjobTitle={setjobDescription} /> 
+            <EditjobInfo type={"number"} name={"positionsOpen"} placeholder={"Enter number of positions"} value={positionsOpen} setjobTitle={setpositionsOpen} /> 
+            <EditjobInfo type={"text"} name={"employmentType"} placeholder={"Enter employment type"} value={employmentType} setjobTitle={setemploymentType} /> 
+            <EditjobInfo type={"text"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
+    
+
+          <div className="flex gap-4 justify-center mx-auto ">
+            
+            <button onClick={handleSave} className=" bg-green-500  text-white font-semibold py-1 md:py-2 h-12 md:h-[50px] px-2 md:px-4 lg:px-6 rounded-lg shadow-md w-20 sm:w-24 md:w-28 hover:bg-green-800 focus:outline-none" >
+              Save
+            </button>
+            {/* <button onClick={handleUpdate} className="bg-gray-500 text-white font-semibold py-1 md:py-2 h-12 md:h-[50px] px-2 md:px-4 lg:px-6 rounded-lg shadow-md w-20 sm:w-24 md:w-28 hover:bg-gray-800 focus:outline-none" >
+              Update
+            </button> */}
+            <button onClick={handleDelete} className="bg-red-500 text-white  font-semibold py-1 md:py-2 h-12 md:h-[50px] px-2 md:px-4 lg:px-6 rounded-lg shadow-md  w-20 sm:w-24 md:w-28 hover:bg-red-800 focus:outline-none" >
+              Delete
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EditJob;
+
+
+//for Update
+// try{
+        //     const response = await axios.put(`http://localhost:3040/jobs/${id}`,updatedJob);
+        // }catch(err){
+        //     console.error('Error Updating job to API:', err);
+        //     alert('Failed to Update job to server');
+        // }
+ //for delete
     // try{
     //   const response=await axios.delete(`http://localhost:3040/jobs/${id}`);
     //   console.log(response.data);
@@ -123,101 +175,13 @@ const handleDelete = async () => {
     // } catch (error) {
     //   console.error('Error during delete and update:', error);
     //   alert("Delete failed!");
-    // }
-  };
-  
-  
+    // }        
 
-  
-
-  return (
-    <div className="w-full max-h-screen  flex justify-center items-center bg-gray-100 relative">
-      {note?<NotificationM context={context}/>:null}
-      <div className="container max-h-screen overflow-y-auto my-6 mx-2 sm:mx-auto bg-white border border-gray-200 rounded-lg shadow-lg p-8 sm:w-10/12 lg:w-8/12 xl:w-6/12">
-        
-        <div className="space-y-6">
-         
-          <div 
-            className='flex justify-end'>
-            <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180' onClick={()=>{navigate('/job')}}/>
-        </div>
-
-          <div className="flex flex-col gap-1">
-            <Label className="font-semibold text-gray-700 text-lg" value="Job Title" />
-            <TextInput
-              type="text"
-              name="jobTitle"
-              placeholder="Enter job title"
-              value={jobTitle}
-              onChange={(e)=>{setjobTitle(e.target.value)}}
-              className="w-full sm:w-10/12 border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <Label className="font-semibold text-gray-700 text-lg" value="Description" />
-            <TextInput
-              type="text"
-              name="jobDescription"
-              placeholder="Enter job description"
-              value={jobDescription}
-              onChange={(e)=>{setjobDescription(e.target.value)}}
-              className="w-full sm:w-10/12 border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <Label className="font-semibold text-gray-700 text-lg" value="Total Positions" />
-            <TextInput
-              type="number"
-              name="positionsOpen"
-              placeholder="Enter number of positions"
-              value={positionsOpen}
-              onChange={(e)=>{setpositionsOpen(e.target.value)}}
-              className="w-full sm:w-10/12 border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <Label className="font-semibold text-gray-700 text-lg" value="Employment Type" />
-            <TextInput
-              type="text"
-              name="employmentType"
-              placeholder="Enter employment type"
-              value={employmentType}
-              onChange={(e)=>{setemploymentType(e.target.value)}}
-              className="w-full sm:w-10/12 border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <Label className="font-semibold text-gray-700 text-lg" value="CTC" />
-            <TextInput
-              type="text"
-              name="salaryLPA"
-              placeholder="Enter CTC"
-              value={salaryLPA}
-              onChange={(e)=>{setsalaryLPA(e.target.value)}}
-              className="w-full sm:w-10/12 border border-gray-300 rounded-lg shadow-sm p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
-          <div className="flex gap-4 justify-center pt-4 mx-auto">
-            <Button onClick={handleSave} color="success" className=" bg-green-500 text-white font-semibold py-2 px-1 md:px-4 lg:px-6 rounded-lg shadow-md  focus:outline-none">
-              Save
-            </Button>
-            <Button onClick={handleUpdate} color="dark" className="bg-gray-500 text-white font-semibold py-2 px-2 md:px-4 lg:px-6 rounded-lg shadow-md hover:bg-gray-800 focus:outline-none">
-              Update
-            </Button>
-            <Button onClick={handleDelete} color='failure'  className="bg-red-500 text-white font-semibold py-2 px-2 md:px-4 lg:px-6 rounded-lg shadow-md hover:bg-red-800 focus:outline-none" >
-                Delete
-            </Button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default EditJob;
+     // for Server
+    // setJobdetails(prevState => {
+    //   const updatedJobList = prevState.map(job => 
+    //     job.id === updatedJob.id ? updatedJob : job
+    //   );
+    //   localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
+    //   return updatedJobList; 
+    // });
