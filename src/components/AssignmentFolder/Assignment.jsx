@@ -9,20 +9,20 @@ const Assignment = () => {
    
    const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom);
 
-   useEffect(()=>{
-      const dataFetch = async () => {
-          try {
-            const response = await axios.get('http://localhost:3040/assignments');
-            if (response.data) {
-              setAssignmentdetails(response.data);
-              localStorage.setItem('Assignmentdetails', JSON.stringify(response.data)); 
-            }
-          } catch (err) {
-            console.error("Failed to fetch details", err);
-          }
-        };
-        dataFetch();
-  },[])
+  //  useEffect(()=>{
+  //     const dataFetch = async () => {
+  //         try {
+  //           const response = await axios.get('http://localhost:3040/assignments');
+  //           if (response.data) {
+  //             setAssignmentdetails(response.data);
+  //             localStorage.setItem('Assignmentdetails', JSON.stringify(response.data)); 
+  //           }
+  //         } catch (err) {
+  //           console.error("Failed to fetch details", err);
+  //         }
+  //       };
+  //       dataFetch();
+  // },[])
 
   return (
     <div>

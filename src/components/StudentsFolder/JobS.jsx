@@ -9,22 +9,22 @@ import Nojob from '../Nojob';
 const JobS = () => {
   const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useRecoilState(UserAtom);
-  const [_, setJob] = useRecoilState(JobAtom);
+  const [jo, setJob] = useRecoilState(JobAtom);
 
-  useEffect(() => {
-    const dataFetch = async () => {
-      try {
-        const response = await axios.get('http://localhost:3040/jobs');
-        if (response.data) {
-          setJobDetails(response.data);
-          localStorage.setItem('Jobdetails', JSON.stringify(response.data));
-        }
-      } catch (err) {
-        console.error('Failed to fetch details', err);
-      }
-    };
-    dataFetch();
-  }, [setJobDetails]);
+  // useEffect(() => {
+  //   const dataFetch = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3040/jobs');
+  //       if (response.data) {
+  //         setJobDetails(response.data);
+  //         localStorage.setItem('Jobdetails', JSON.stringify(response.data));
+  //       }
+  //     } catch (err) {
+  //       console.error('Failed to fetch details', err);
+  //     }
+  //   };
+  //   dataFetch();
+  // }, [setJobDetails]);
 
   return (
     <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -49,7 +49,7 @@ const JobS = () => {
                   <h2 className="text-xl font-bold text-gray-900 mb-2">{job.jobTitle}</h2>
                   <p className="text-gray-600 mb-4">{job.jobDescription}</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-gray-500 text-sm">{job.company}</p>
+                    <p className="text-gray-500 text-sm">ENTNT</p>
                     <button
                       className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
                       onClick={() => {

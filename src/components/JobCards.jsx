@@ -23,7 +23,7 @@ const JobCards = () => {
         {/* cardtemplate */}
        {Jobdetails.map((res,index)=>(
     
-           <div key={index}  data-aos-delay="100" className='p-2 flex flex-col border transform duration-200 gap-4 border-slate-100 shadow-lg py-4 hover:scale-105'>
+           <div key={index}  data-aos-delay="100" className='p-2 flex flex-col border transform-all duration-200 gap-4 border-slate-100 shadow-lg py-4 hover:scale-105'>
            <h1 onClick={()=>{navigate(`/details/${res.id}`)}}  className='text-2xl font bold cursor-pointer '>{res.jobTitle}</h1>
            <span className='font-light text-gray-400 w-full h-16'>{res.jobDescription}</span>
            
@@ -37,7 +37,7 @@ const JobCards = () => {
            <div className=' border-t-2 p-2 flex sm:gap-1 justify-between items-center'>
             
             <div 
-            onClick={()=>{navigate(`/details/${res.id}`),console.log(res.id)}} 
+            onClick={()=>{navigate(`/details/${res.id}`)}} 
             className='font-light hover:text-blue-600 hover:font-semibold hover:scale-110 cursor-pointer trasnform-all duration-200 flex items-center justify-center group'>
                 Details
                <MdKeyboardArrowRight className='transform transition-transform duration-200 group-hover:rotate-180'/>

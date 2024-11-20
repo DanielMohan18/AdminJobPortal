@@ -15,15 +15,14 @@ const EditMcq = () => {
   const navigate=useNavigate();
   const location = useLocation();
   const {name}=useParams();
-  const isFirstRender = useRef(true); 
   const [note,setNote]=useRecoilState(NoteAtom);
   const [edit,setedit]=useRecoilState(EditAtom);
   const [save,setSave]=useState(false);
   const [job,setJob]=useRecoilState(JobAtom);
+
   const [assignmentDetails, setAssignmentdetails] = useRecoilState(AssignmentAtom);
   const assignmentId = location.pathname.split('/')[2];
   const filterdata = assignmentDetails.filter(mcq => mcq.id === parseInt(assignmentId));
- 
 
  
   const [question, setQuestion] = useState(filterdata[0].question);
@@ -44,18 +43,7 @@ const EditMcq = () => {
     
   };
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-        isFirstRender.current = false; 
-        return; 
-      }
-    if (note || edit ) {
-        const timer = setTimeout(() => {
-        setSave(false);
-        }, 2000);
-   return () => clearTimeout(timer);
-  }
-  }, [save,setSave]);
+ 
 
   const newdata ={
     id:filterdata[0].id,
@@ -70,15 +58,20 @@ const EditMcq = () => {
   
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(newdata);
+   
+    if(question=='' || opt1.text==''|| opt2.text==''|| opt3.text==''|| opt4.text==''){
+      return alert("Field must be non empty");
+    }
+    
     const updatedMcq =assignmentDetails.map(res=>res.id === newdata.id ? newdata : res); 
-    console.log(updatedMcq);
     setAssignmentdetails(updatedMcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(updatedMcq));
+
     setNote(true);
     setTimeout(()=>setNote(false),1500);
     setSave(true);
     setTimeout(()=>setSave(false),1500);
+
     setJob(name);
   };
 
@@ -133,6 +126,7 @@ const EditMcq = () => {
                 placeholder={`Option ${index + 1}`}
                 value={option.text}
                 onChange={(e) => handleOptionChange(option, 'text', e.target.value)}
+                required
               />
               <select
                 className="border border-gray-300 rounded-lg p-3 outline-none"
@@ -189,6 +183,7 @@ export default EditMcq;
     //      console.log(err);
     //      alert("failed to update server!") 
     // }
+
 //delete
  //Server    
     // try {

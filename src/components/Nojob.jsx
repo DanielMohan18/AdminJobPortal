@@ -7,7 +7,7 @@ const Nojob = () => {
     <div className="relative p-4">
     
     {location.pathname.startsWith('/student')?null:
-    <div  className="hidden md:flex text-xl absolute  gap-4 top-4 left-10  animate-bounce duration-100 "> 
+    <div  className="hidden md:flex text-xl absolute  gap-4 top-6 left-10  animate-bounce duration-100 "> 
       <FaArrowAltCircleLeft  className="text-3xl text-blue-500 " />
       <h1 className="text-slate-600 font-semibold">Click to Add</h1>  
     </div>}

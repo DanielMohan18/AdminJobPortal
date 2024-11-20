@@ -11,16 +11,16 @@ import EditjobInfo from './EditjobInfo';
 import EditAtom from '../atoms/EditAtom';
 import { DiYii } from "react-icons/di";
 import { Label } from 'flowbite-react';
+import AssignmentAtom from '../atoms/AssignmentAtom';
 
 const EditJob = () => {
   
   const { id } = useParams();
   const navigate=useNavigate();
-  const isFirstRender = useRef(true);
   const [save,setSave]=useState(false);
   const [Jobdetails, setJobdetails] = useRecoilState(UserAtom);
   const [candidateDetails,setCandidateDetails] =useRecoilState(CandidateAtom);
-  
+  const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom);
   const [note,setNote]=useRecoilState(NoteAtom);
   const [edit,setedit]=useRecoilState(EditAtom);
 
@@ -33,7 +33,7 @@ const EditJob = () => {
   const [employmentType,setemploymentType] =useState(filteredDetails?.employmentType || ' ');
   const [salaryLPA,setsalaryLPA] =useState(filteredDetails?.salaryLPA || ' ');
   const [context,setContext]=useState('Saved Successfully');
-
+  
 //   NewData
   const updatedJob = {
     id: parseInt(id),
@@ -47,7 +47,11 @@ const EditJob = () => {
 
       
     //For Save
-    const handleSave = (e) => {  
+    const handleSave = (e) => { 
+      
+      if(updatedJob.jobTitle==''|| updatedJob.jobDescription==''||updatedJob.positionsOpen==''||updatedJob.employmentType==''||updatedJob.salaryLPA==''){
+        return alert("All fields are required!!");
+      }
      e.preventDefault(); 
     const updatedJobList =Jobdetails.map(res=>res.id === updatedJob.id ? updatedJob : res); 
     setJobdetails(updatedJobList);
@@ -73,9 +77,14 @@ const handleDelete = async () => {
   setJobdetails(updatedJobList);
   localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
 
-  const updatedCandidList=candidateDetails.filter(res=>res.jobid!==updatedJob.id);
+  const updatedCandidList=candidateDetails.filter(res=>res.jobId !== updatedJob.id);
   setCandidateDetails(updatedCandidList);
   localStorage.setItem('Candidatedetails',JSON.stringify(updatedCandidList));
+
+  const data=assignmentDetails.filter(res=>res.jobTitle!=updatedJob.jobTitle);
+  setAssignmentdetails(data);
+  localStorage.setItem('Assignmentdetails',JSON.stringify(data));
+
 
   setedit(true);
   setTimeout(()=>setedit(false),1500);
@@ -98,13 +107,25 @@ const handleDelete = async () => {
              {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 '/>:<div></div>}   
             <FaArrowRight className='cursor-pointer transition-transform duration-200 hover:rotate-180 ' onClick={()=>{navigate('/job')}}/>
         </div>
-            
+           
             <EditjobInfo head={"JobTitle:"} type={"text"} name={"jobTitle"} placeholder={"Enter job title"} value={jobTitle} setjobTitle={setjobTitle}/>
             <EditjobInfo head={"JobDescription:"} type={"text"} name={"jobDescription"} placeholder={"Enter job description"} value={jobDescription} setjobTitle={setjobDescription} /> 
             <EditjobInfo head={"Positions Opens:"} type={"number"} name={"positionsOpen"} placeholder={"Enter number of positions"} value={positionsOpen} setjobTitle={setpositionsOpen} /> 
-            <EditjobInfo head={"Emplyment-Type:"} type={"text"} name={"employmentType"} placeholder={"Enter employment type"} value={employmentType} setjobTitle={setemploymentType} /> 
+            <div className="flex flex-col gap-1">
+                                <label className="font-semibold text-gray-700 text-lg" value={"Employment-Type:"}>Employment Type </label>
+                                <select
+                                    className="w-full sm:w-10/12 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                    value={employmentType}
+                                    name={"employmentType"}
+                                    onChange={(e) => setemploymentType(e.target.value)}
+                                >
+                                    <option value="Full Time">Full Time</option>
+                                    <option value="Intern">Intern</option>
+                                    <option value="Contract">Contract</option>
+                                </select>
+            </div>
             <EditjobInfo head={"CTC:"} type={"text"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
-    
+          
 
           <div className="flex gap-4 justify-center mx-auto ">
             

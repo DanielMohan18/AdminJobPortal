@@ -47,12 +47,13 @@ const CandidateList = ({ jobId }) => {
       </div>
     );
   }
+  
   return (
     <div data-aos="fade-up" data-aos-delay="300" className="space-y-4 container max-h-[calc(100vh-40vh)] overflow-y-auto border p-3 border-slate-300 rounded-lg">
       {filteredCandidates.map((candidate) => (
         <div key={candidate.cid} className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div 
-            className="p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+            className="p-4 cursor-pointer hover:bg-gray-50"
             onClick={() => {
               setSelectedCandidate(selectedCandidate === candidate.cid ? null : candidate.cid);
               setStatus(candidate.status);

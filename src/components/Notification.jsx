@@ -8,6 +8,18 @@ const NotificationM = ({  context ,top }) => {
  const [note,setNote]=useRecoilState(NoteAtom);
  const [edit,setEdit]=useRecoilState(EditAtom);
 
+//  useEffect(() => {
+//   if (isFirstRender.current) {
+//       isFirstRender.current = false; 
+//       return; 
+//     }
+//   if (note || edit ) {
+//       const timer = setTimeout(() => {
+//       setSave(false);
+//       }, 2000);
+//  return () => clearTimeout(timer);
+// }
+// }, [save,setSave]);
 
   return (
     <>

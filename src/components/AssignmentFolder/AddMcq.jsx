@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { RxCross1 } from "react-icons/rx";
+import { RxCross1, RxCross2 } from "react-icons/rx";
 import { useRecoilState } from 'recoil';
 import PopAtom from '../../atoms/PopAtom';
 import AssignmentAtom from '../../atoms/AssignmentAtom';
@@ -16,7 +16,9 @@ const AddMcq = () => {
   const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom)  
 
   const [pop,setPop] = useRecoilState(PopAtom);
- 
+  const [field,setField]=useState(false);
+  const [text,setText]=useState('');
+
   const [question, setQuestion] = useState('');
   const [opt1, setOpt1] = useState({ text: '', bool: false });
   const [opt2, setOpt2] = useState({ text: '', bool: false });
@@ -38,11 +40,13 @@ const AddMcq = () => {
     e.preventDefault();
 
     if (!question.trim()) {
-      alert('Please enter a question.');
-      return;
+       setText("Question Required!!");
+       setField(true);
+       return;
     }
-    if (![opt1, opt2, opt3, opt4].some(opt => opt.text.trim())) {
-      alert('Please provide at least one option.');
+    if (![opt1, opt2, opt3, opt4].some(opt => opt.text.trim())){
+      setText(" Atleast One Option Required!!")
+      setField(true);
       return;
     }
 
@@ -51,7 +55,7 @@ const AddMcq = () => {
     const questionExists = exsistingdata.filter(res=>res.question===question);
   
     if (questionExists.length>0) {
-      alert('This question already exists in the assignments.');
+      alert('This question already exists in this assignment.');
       return;
     }
 
@@ -73,10 +77,25 @@ const AddMcq = () => {
     setPop(!pop);
   };
 
+  const handleField=()=>{
+    setField(false);
+  }
+
   return (
     <div>
       {pop&& (
-        <div className="h-full w-full fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
+        <div className="h-full w-full fixed top-0 left-0 z-30 backdrop-blur-sm flex justify-center items-center ">
+
+         {field &&(
+                <div className='border rounded-full transition-all duration-300 bg-red-200 px-3 py-1.5  text-center text-red-900 border-red-400 absolute  right-4 top-4 z-50 flex gap-3 '>
+                <div className='flex items-center justify-center text-lg cursor-pointer  bg-red-400 rounded-full p-0.5'>
+                <RxCross2 onClick={handleField}/>
+               </div>
+                {text}
+               </div>
+          )}
+
+
           <div className="w-[300px] sm:w-[400px] md:w-[560px] bg-white border p-6 rounded-lg shadow-lg">
             <div className="flex justify-end mb-4">
               <RxCross1

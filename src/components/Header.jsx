@@ -7,7 +7,7 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+
 
   const BackImg = {
     backgroundImage: `url(${entBG})`,
@@ -20,8 +20,7 @@ const Header = () => {
   const navLinks = location.pathname.startsWith('/student')
     ? [
         { path: '/', label: 'Home' },
-        { path: '/student/job', label: 'Jobs' },
-        { path: '/student/assignment', label: 'Assignment' }
+        { path: '/student/job', label: 'Jobs' }
       ]
     : [
         { path: '/', label: 'Home' },
@@ -29,16 +28,7 @@ const Header = () => {
         { path: '/assignment', label: 'Create Assignment' }
       ];
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -61,7 +51,6 @@ const Header = () => {
         {/* Desktop Navigation */}
         <div className="hidden sm:flex gap-6 text-xl my-auto">
           {navLinks.map((link) => (
-            (link.label === 'Assignment' && link.path === '/student/assignment') ? null : (
               <div
                 key={link.path}
                 onClick={() => handleNavigation(link.path)}
@@ -74,11 +63,11 @@ const Header = () => {
                 {link.label}
               </div>
             )
-          ))}
+          )}
         </div>
 
         {/* Mobile Menu Container */}
-        <div className="sm:hidden relative" ref={menuRef}>
+        <div className="sm:hidden relative" >
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 text-white"
@@ -90,7 +79,6 @@ const Header = () => {
           {isMenuOpen && (
             <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
               {navLinks.map((link) => (
-                (link.label === 'Assignment' && link.path === '/student/assignment') ? null : (
                   <div
                     key={link.path}
                     onClick={() => handleNavigation(link.path)}
@@ -103,7 +91,7 @@ const Header = () => {
                     {link.label}
                   </div>
                 )
-              ))}
+              )}
             </div>
           )}
         </div>

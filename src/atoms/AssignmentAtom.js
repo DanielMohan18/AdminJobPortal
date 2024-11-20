@@ -24,69 +24,6 @@ const AssignmentAtom =atom ({
       }
     },
     {
-      "id": 14545,
-      "jobTitle": "Software Engineer",
-      "question": "What is the primary responsibility of a Software Engineer?",
-      "opt1": {
-        "text": "Develop and maintain software applications.",
-        "bool": true
-      },
-      "opt2": {
-        "text": "Analyze data for business insights.",
-        "bool": false
-      },
-      "opt3": {
-        "text": "Design user interfaces for websites.",
-        "bool": false
-      },
-      "opt4": {
-        "text": "Conduct financial audits.",
-        "bool": false
-      }
-    },
-    {
-      "id": 14645,
-      "jobTitle": "Software Engineer",
-      "question": "What is the primary responsibility of a Software Engineer?",
-      "opt1": {
-        "text": "Develop and maintain software applications.",
-        "bool": true
-      },
-      "opt2": {
-        "text": "Analyze data for business insights.",
-        "bool": false
-      },
-      "opt3": {
-        "text": "Design user interfaces for websites.",
-        "bool": false
-      },
-      "opt4": {
-        "text": "Conduct financial audits.",
-        "bool": false
-      }
-    },
-    {
-      "id": 12785,
-      "jobTitle": "Software Engineer",
-      "question": "What is the primary responsibility of a Software Engineer?",
-      "opt1": {
-        "text": "Develop and maintain software applications.",
-        "bool": true
-      },
-      "opt2": {
-        "text": "Analyze data for business insights.",
-        "bool": false
-      },
-      "opt3": {
-        "text": "Design user interfaces for websites.",
-        "bool": false
-      },
-      "opt4": {
-        "text": "Conduct financial audits.",
-        "bool": false
-      }
-    },
-    {
       "id": 67890,
       "jobTitle": "Data Scientist",
       "question": "Which skill is most relevant for a Data Scientist?",

@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <div  className='h-[calc(100vh+40px)] w-screen '>
-      <div style={BackImg} className='grid grid-cols-1 md:grid-cols-2 gap-4 relative '>
+      <div style={BackImg}  className='grid grid-cols-1 md:grid-cols-2 gap-4 relative '>
 
         {/* Left Div */}
         <div className='flex items-center justify-center'>
@@ -39,7 +39,7 @@ const Home = () => {
             {/* Admin Div */}
             <div
               onClick={() => { navigate('/job') }}
-              className="relative group text-center cursor-pointer transform transition duration-300 ease-in-out hover:scale-110">
+              className="relative group text-center cursor-pointer  transition duration-300 ease-in-out hover:scale-110">
               <div data-aos="fade-right" data-aos-delay='600' className='flex gap-3 md:gap-6 text-center items-center justify-center font-bold'>
                 <span>ADMIN</span>
                 <div className='flex items-center justify-center'>

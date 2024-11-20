@@ -9,16 +9,8 @@ const SidebarA = () => {
   const jobDetails = useRecoilValue(UserAtom);
   const [selectedJob, setSelectedJob] = useState('');
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     if (jobDetails.length > 0) {
@@ -34,8 +26,8 @@ const SidebarA = () => {
 
   return (
     <div className="relative h-14 sm:h-[calc(100vh-120px)] py-4">
-      {isDesktop ? (
-        <>
+    
+        <div className='md:inline hidden'>
           <button
             onClick={() => setSidebarCollapsed(prev => !prev)}
             className="hidden md:flex absolute -right-3 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-1 hover:bg-gray-50 transition-colors"
@@ -91,9 +83,9 @@ const SidebarA = () => {
               </div>
             ))}
           </div>
-        </>
-      ) : (
-       <div className='flex gap-1 items-center justify-center'>
+        </div>
+
+       <div className='flex gap-1 items-center justify-center  md:hidden'>
         <p className='font-bold'>Select:</p>
         <div className="w-48">
           <select
@@ -109,8 +101,6 @@ const SidebarA = () => {
           </select>
         </div>
        </div>
-        
-      )}
     </div>
   );
 };

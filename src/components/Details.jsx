@@ -13,7 +13,7 @@ const Details = () => {
   const jobDetails = useRecoilValue(UserAtom);
   const candidateDetails = useRecoilValue(CandidateAtom);
   const { id } = useParams();
-  
+
   const filteredDetails = jobDetails.find(candidate => candidate.id === parseInt(id));
   const candidateData = candidateDetails.filter(res => res.jobId === parseInt(id));
   

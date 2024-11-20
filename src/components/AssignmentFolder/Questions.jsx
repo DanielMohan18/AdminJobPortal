@@ -14,6 +14,7 @@ import NoteAtom from '../../atoms/NoteAtom';
 import EditAtom from '../../atoms/EditAtom';
 
 const Questions = () => {
+  
   const navigate = useNavigate();
   const job = useRecoilValue(JobAtom);
   const pop = useRecoilValue(PopAtom);
@@ -23,8 +24,8 @@ const Questions = () => {
  
 
   const assignmentDetails = useRecoilValue(AssignmentAtom);
-  const filteredData = assignmentDetails.filter((res) => res.jobTitle === String(job)); // Ensure `job` is a string or get a specific property
-  console.log(filteredData);
+  const filteredData = assignmentDetails.filter((res) => res.jobTitle === String(job)); 
+ 
   return (
     <div className="flex flex-col gap-4 p-6 w-full relative">
       {/* {note && <NotificationM context="Added Successfully" top={2} />}
@@ -32,7 +33,7 @@ const Questions = () => {
       {pop && <AddMcq />}
 
       <div className="font-bold text-2xl">
-        {job ? String(job) : "Select"} 
+        {String(job) ? String(job) : "Select"} 
         <span className="text-gray-400"> Assignment</span>
       </div>
 
@@ -45,7 +46,7 @@ const Questions = () => {
                 className="w-full bg-white border border-gray-200 p-6 shadow-lg rounded-lg mx-auto max-w-2xl"
               >
                 <h1 className="font-semibold text-xl mb-4">
-                  Q{index + 1}. {res.question}?
+                  Q{index + 1}. {res.question}
                 </h1>
                 <div className="flex flex-col gap-2">
                   {[res.opt1, res.opt2, res.opt3, res.opt4].map((option, i) => (
@@ -69,7 +70,7 @@ const Questions = () => {
                 <div className="flex justify-center mt-6">
                   <Button
                     onClick={() => {
-                      navigate(`/editmcq/${res.id}/${job.jobTitle}`);
+                      navigate(`/editmcq/${res.id}/${res.jobTitle}`);
                     }}
                     color="success"
                     className="bg-green-500 hover:bg-green-600 text-white w-32"
