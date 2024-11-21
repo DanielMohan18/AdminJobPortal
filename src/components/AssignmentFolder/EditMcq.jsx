@@ -10,6 +10,8 @@ import NoteAtom from '../../atoms/NoteAtom';
 import EditAtom from '../../atoms/EditAtom';
 import { DiYii } from "react-icons/di";
 import JobAtom from '../../atoms/JobAtom';
+import { RxCross2 } from 'react-icons/rx';
+import { LuSave } from "react-icons/lu";
 
 const EditMcq = () => {
   const navigate=useNavigate();
@@ -19,6 +21,9 @@ const EditMcq = () => {
   const [edit,setedit]=useRecoilState(EditAtom);
   const [save,setSave]=useState(false);
   const [job,setJob]=useRecoilState(JobAtom);
+  const [text,setText]=useState('');
+  const [field,setField]=useState(false);
+  const [safe,setSafe]=useState(false);
 
   const [assignmentDetails, setAssignmentdetails] = useRecoilState(AssignmentAtom);
   const assignmentId = location.pathname.split('/')[2];
@@ -59,13 +64,36 @@ const EditMcq = () => {
   const handleSave = (e) => {
     e.preventDefault();
    
-    if(question=='' || opt1.text==''|| opt2.text==''|| opt3.text==''|| opt4.text==''){
-      return alert("Field must be non empty");
-    }
+    if (!opt1.bool && !opt2.bool && !opt3.bool && !opt4.bool) {
+      setText("At least one option should be correct!");
+      setField(true);
+      setTimeout(() => setField(false), 1400);
+      return;
+  }
+
+
+  const invalidFields = [];
+  if (question.trim() === '') invalidFields.push("Question");
+  if (opt1.text.trim() === '') invalidFields.push("Option 1");
+  if (opt2.text.trim() === '') invalidFields.push("Option 2");
+  if (opt3.text.trim() === '') invalidFields.push("Option 3");
+  if (opt4.text.trim() === '') invalidFields.push("Option 4");
+
+ 
+  if (invalidFields.length > 0) {
+      setText(`Required ${invalidFields[0]} Field! `);
+      setField(true);
+      setTimeout(() => setField(false), 1400);
+      return;
+  }
+
     
     const updatedMcq =assignmentDetails.map(res=>res.id === newdata.id ? newdata : res); 
     setAssignmentdetails(updatedMcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(updatedMcq));
+
+    setSafe(true);
+    setTimeout(()=>setSafe(false),1400);
 
     setNote(true);
     setTimeout(()=>setNote(false),1500);
@@ -93,10 +121,34 @@ const EditMcq = () => {
       navigate('/assignment');
   };
   
-
+  const handleField=()=>{
+    setField(false);
+  }
+  const handleSafe=()=>{
+    setSave(false);
+  }
   return (
     <div className="flex justify-center items-center h-[calc(100vh-70px)] bg-gray-100 relative ">
       {/* <NotificationM context={"Saved Successfully"} top={2}/> */}
+
+      {field &&(
+                <div className='border rounded-full transition-all duration-300 bg-red-200 px-3 py-1.5  text-center text-red-900 border-red-400 absolute  right-4 top-4 z-50 flex gap-3 '>
+                <div className='flex items-center justify-center text-lg cursor-pointer  bg-red-400 rounded-full p-0.5'>
+                <RxCross2 onClick={handleField}/>
+               </div>
+                {text}
+               </div>
+          )}
+
+      {safe &&(
+                <div className='border rounded-full transition-all duration-300 bg-green-200 px-3 py-1.5  text-center text-green-900 border-green-400 absolute -translate-x-24 left-1/2 top-4 z-50 flex gap-3 '>
+                <div className='flex items-center justify-center text-lg cursor-pointer  bg-green-300 rounded-full p-0.5'>
+                <LuSave onClick={handleSafe}/>
+               </div>
+                Saved Succussfully.
+               </div>
+          )}    
+
       <div className="w-full mx-2 sm:mx-10 lg:mx-auto max-w-4xl bg-white border p-8 rounded-lg shadow-xl overflow-y-auto">
         <div className="flex justify-between mb-4">
           {(save)?<DiYii className='text-green-600 text-2xl transition-all duration-200 '/>:<div></div>}

@@ -24,6 +24,8 @@ const AddMcq = () => {
   const [opt2, setOpt2] = useState({ text: '', bool: false });
   const [opt3, setOpt3] = useState({ text: '', bool: false });
   const [opt4, setOpt4] = useState({ text: '', bool: false });
+  
+ 
 
   const handleOptionChange = (option, field, value) => {
     const update = { ...option, [field]: field === 'bool' ? value === 'true' : value };
@@ -42,12 +44,19 @@ const AddMcq = () => {
     if (!question.trim()) {
        setText("Question Required!!");
        setField(true);
+       setTimeout(()=>{setField(false)},1400);
        return;
     }
-    if (![opt1, opt2, opt3, opt4].some(opt => opt.text.trim())){
-      setText(" Atleast One Option Required!!")
-      setField(true);
-      return;
+    const emptyOptions = [opt1, opt2, opt3, opt4]
+    .map((opt, index) => ({ option: `option${index + 1}`, text: opt.text.trim() }))
+    .filter(opt => opt.text === '')
+    .map(opt => opt.option);
+
+    if (emptyOptions.length > 0) {
+    setText(`Required: ${emptyOptions[0]}`);
+    setField(true);
+    setTimeout(() => setField(false), 1400);
+    return;
     }
 
     const exsistingdata=assignmentDetails.filter(res=>res.jobTitle===job[0]);
@@ -68,7 +77,20 @@ const AddMcq = () => {
       opt3,
       opt4,
     };
-
+  
+    if(newQuestion.jobTitle==''){
+      setText("No Job is Selected!!")
+      setField(true);
+      setTimeout(()=>setField(false),1400);
+      return;
+    }
+    
+    if(newQuestion.opt1.bool== false && newQuestion.opt2.bool== false && newQuestion.opt3.bool== false && newQuestion.opt4.bool==false){
+      setText("Atleast one option should be correct!")
+      setField(true);
+      setTimeout(()=>setField(false),1400);
+      return;
+    }
     const Updatedmcq = [...assignmentDetails,newQuestion];
     setAssignmentdetails(Updatedmcq);
     localStorage.setItem('Assignmentdetails',JSON.stringify(Updatedmcq));

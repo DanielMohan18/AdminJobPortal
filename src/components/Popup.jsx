@@ -13,39 +13,56 @@ const Popup = ({ popUp, setpopUp }) => {
     const [salaryLPA, setsalaryLPA] = useState('');
     const [numCandidatesApplied, setnumCandidatesApplied] = useState(0);
     const [field,setfield]=useState(false);
+    const [text,setText]=useState('');
     const [globalData, setglobalData] = useRecoilState(UserAtom);
     const [note, setNote] = useRecoilState(NoteAtom);
    
     const HandlePost = () => {
-        
         const newJob = {
             id: Math.floor(10000 + Math.random() * 90000),
-            jobTitle,
-            jobDescription,
+            jobTitle:jobTitle.trim(),
+            jobDescription:jobDescription.trim(),
             numCandidatesApplied: parseInt(numCandidatesApplied),
             positionsOpen: parseInt(positionsOpen),
             employmentType,
             salaryLPA: parseFloat(salaryLPA)
         };
-
-        const data=globalData.filter((res)=>{res.jobTitle==newJob.jobTitle});
+    
+        
         const data1 = globalData.find(job => job.jobTitle === newJob.jobTitle);
-        console.log(data1);
-        if(data1){
-           setfield(true);
+        if (data1) {
+            setText("Job Already Exists!!");
+            setfield(true);
+            setTimeout(() => setfield(false), 1400);
+            return;
         }
-
-        if (newJob.jobTitle !== '' && newJob.jobDescription!=='' && newJob.positionsOpen!=='' && newJob.employmentType!=='' && newJob.salaryLPA!=='') {
-            const UpdateJobs = [...globalData, newJob];
-            setglobalData(UpdateJobs);
-            localStorage.setItem('Jobdetails', JSON.stringify(UpdateJobs));
-            setpopUp(false);
-            setNote(true);
-            setTimeout(()=>setNote(false),1500);
-        } else {
-           setfield(true);
+    
+        
+        const invalidFields = Object.entries(newJob)
+            .filter(([key, value]) => 
+                value === '' || 
+                value === undefined || 
+                value === null || 
+                (typeof value === 'number' && isNaN(value))
+            )
+            .map(([key]) => key); 
+       
+        if (invalidFields.length > 0) {
+            setText(`Please fill the ${invalidFields[0]} field!`);
+            setfield(true);
+            setTimeout(() => setfield(false), 1400);
+            return;
         }
+    
+       
+        const UpdateJobs = [...globalData, newJob];
+        setglobalData(UpdateJobs);
+        localStorage.setItem('Jobdetails', JSON.stringify(UpdateJobs));
+        setpopUp(false);
+        setNote(true);
+        setTimeout(() => setNote(false), 1500);
     };
+    
 
     const handleField=()=>{
         setfield(false);
@@ -57,11 +74,11 @@ const Popup = ({ popUp, setpopUp }) => {
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
            
            {field &&(
-                <div className='border rounded-full transition-all duration-300 bg-red-200 px-3 py-1.5 w-[240px] text-center text-red-900 border-red-400 absolute  right-4 top-4 z-50 flex gap-3 '>
+                <div className='border rounded-full transition-all duration-300 bg-red-200 px-3 py-1.5 text-center text-red-900 border-red-400 absolute  right-4 top-4 z-50 flex gap-3 '>
                 <div className='flex items-center justify-center text-lg cursor-pointer  bg-red-400 rounded-full p-0.5'>
                 <RxCross2 onClick={handleField}/>
                </div>
-                All fields are required!!
+                {text}
                </div>
           )}
 

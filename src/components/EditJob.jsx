@@ -12,6 +12,8 @@ import EditAtom from '../atoms/EditAtom';
 import { DiYii } from "react-icons/di";
 import { Label } from 'flowbite-react';
 import AssignmentAtom from '../atoms/AssignmentAtom';
+import { RxCross2 } from 'react-icons/rx';
+import { LuSave } from 'react-icons/lu';
 
 const EditJob = () => {
   
@@ -23,6 +25,10 @@ const EditJob = () => {
   const [assignmentDetails,setAssignmentdetails]=useRecoilState(AssignmentAtom);
   const [note,setNote]=useRecoilState(NoteAtom);
   const [edit,setedit]=useRecoilState(EditAtom);
+  const [field,setField]=useState(false);
+  const [text,setText]=useState('');
+  const [safe,setSafe]=useState(false);
+
 
   const filteredDetails = Jobdetails.find(job => job.id === parseInt(id));
   const filteredCandidate=candidateDetails.filter(job=>job.jobId===filteredDetails.id);
@@ -34,11 +40,11 @@ const EditJob = () => {
   const [salaryLPA,setsalaryLPA] =useState(filteredDetails?.salaryLPA || ' ');
   const [context,setContext]=useState('Saved Successfully');
   
-//   NewData
+
   const updatedJob = {
     id: parseInt(id),
-    jobTitle,
-    jobDescription,
+    jobTitle:jobTitle.trim(),
+    jobDescription:jobDescription.trim(),
     numCandidatesApplied: filteredCandidate.length,
     positionsOpen,
     employmentType,
@@ -48,14 +54,29 @@ const EditJob = () => {
       
     //For Save
     const handleSave = (e) => { 
-      
-      if(updatedJob.jobTitle==''|| updatedJob.jobDescription==''||updatedJob.positionsOpen==''||updatedJob.employmentType==''||updatedJob.salaryLPA==''){
-        return alert("All fields are required!!");
-      }
-     e.preventDefault(); 
+      e.preventDefault();
+      const invalidFields = Object.entries(updatedJob)
+            .filter(([key, value]) => 
+                value === '' || 
+                value === undefined || 
+                value === null || 
+                (typeof value === 'number' && isNaN(value))
+            )
+            .map(([key]) => key); 
+       
+        if (invalidFields.length > 0) {
+            setText(`Please fill the ${invalidFields[0]} field!`);
+            setField(true);
+            setTimeout(() => setField(false), 1400);
+            return;
+        }
+     
     const updatedJobList =Jobdetails.map(res=>res.id === updatedJob.id ? updatedJob : res); 
     setJobdetails(updatedJobList);
     localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
+
+    setSafe(true);
+    setTimeout(()=>setSafe(false),1400);
 
     setSave(true);
     setTimeout(()=>setSave(false),1500);
@@ -72,7 +93,7 @@ const EditJob = () => {
 
 //For Delete
 const handleDelete = async () => {  
-  //Local Storage
+  
   const updatedJobList =Jobdetails.filter(res=>res.id !== updatedJob.id); 
   setJobdetails(updatedJobList);
   localStorage.setItem('Jobdetails', JSON.stringify(updatedJobList));
@@ -92,15 +113,40 @@ const handleDelete = async () => {
   };
   
   
-
+  const handleField=()=>{
+    setField(false);
+  }
   
-
+  const handleSafe=()=>{
+     setSafe(false);
+  }
+  
   return (
     <>
    
     <div className="w-full h-[calc(100vh-70px)]  flex justify-center items-center bg-gray-100 relative">
       <div className="overflow-y-auto sm:mx-4 my-6 h-[560px] mx-1 bg-white border border-gray-200 rounded-lg shadow-lg py-6 px-10 w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12">
       {/* {note?<NotificationM context={context} top={2} />:null}  */}
+
+      {field &&(
+                <div className='border rounded-full transition-all duration-300 bg-red-200 px-3 py-1.5 text-center text-red-900 border-red-400 absolute  right-4 top-4 z-50 flex gap-3 '>
+                <div className='flex items-center justify-center text-lg cursor-pointer  bg-red-400 rounded-full p-0.5'>
+                <RxCross2 onClick={handleField}/>
+               </div>
+                {text}
+               </div>
+          )}
+      
+      {safe &&(
+                <div className='border rounded-full transition-all duration-300 bg-green-200 px-3 py-1.5  text-center text-green-900 border-green-400 absolute -translate-x-24 left-1/2 top-4 z-50 flex gap-3 '>
+                <div className='flex items-center justify-center text-lg cursor-pointer  bg-green-300 rounded-full p-0.5'>
+                <LuSave onClick={handleSafe}/>
+               </div>
+                Saved Succussfully.
+               </div>
+          )}    
+
+
         <div className="space-y-3 h-full">
           <div 
             className='flex justify-between '>
@@ -124,7 +170,7 @@ const handleDelete = async () => {
                                     <option value="Contract">Contract</option>
                                 </select>
             </div>
-            <EditjobInfo head={"CTC:"} type={"text"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
+            <EditjobInfo head={"CTC:"} type={"number"} name={"salaryLPA"} placeholder={"Enter CTC"} value={salaryLPA} setjobTitle={setsalaryLPA} /> 
           
 
           <div className="flex gap-4 justify-center mx-auto ">

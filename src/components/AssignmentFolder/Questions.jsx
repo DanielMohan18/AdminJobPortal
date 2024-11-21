@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import AssignmentAtom from '../../atoms/AssignmentAtom';
 import { Button } from 'flowbite-react';
 import { ImCross } from 'react-icons/im';
@@ -21,6 +21,7 @@ const Questions = () => {
   const note = useRecoilValue(NoteAtom);
   const edit = useRecoilValue(EditAtom);
  
+  
  
 
   const assignmentDetails = useRecoilValue(AssignmentAtom);
@@ -53,15 +54,15 @@ const Questions = () => {
                     <div
                       key={i}
                       className={`rounded-lg border ${
-                        option.bool ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        option.bool ? `${option.text!=''? "bg-green-100 text-green-700":"bg-gray-100 text-gray-700"}`: `${option.text!=''? "bg-red-100 text-red-700":"bg-gray-100 text-gray-700"}`
                       }`}
                     >
                       <div className="p-3 flex justify-between items-center gap-2">
-                        <div>{i + 1}. {option.text}</div>
+                        <div>{i + 1}. {option.text!='' ? option.text:"No Option"}</div>
                         {option.bool ? (
-                          <FaFireAlt className="hidden sm:block text-green-900 text-sm sm:text-lg" />
+                          <FaFireAlt className={`hidden sm:block  ${option.text!=''? "text-green-900" :"text-gray-900"}  text-sm sm:text-lg`} />
                         ) : (
-                          <ImCross className="hidden sm:block text-red-900 text-sm md:text-lg" />
+                          <ImCross className={`hidden sm:block  ${option.text!=''? "text-red-900" :"text-gray-900"}  text-sm sm:text-lg`}  />
                         )}
                       </div>
                     </div>
@@ -84,7 +85,7 @@ const Questions = () => {
             <NoMcq />
           )
         ) : (
-          <div className="text-center text-gray-500">No role was selected</div>
+          <div className="text-center text-gray-500">No Jobs Available!!</div>
         )}
       </div>
     </div>

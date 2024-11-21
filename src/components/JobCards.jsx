@@ -56,7 +56,7 @@ const JobCards = () => {
        
       </div>
       :
-       <Nojob />}
+       <Nojob text={" No jobs assigned. Create one to get started!"}/>}
     </div>
   )
 }

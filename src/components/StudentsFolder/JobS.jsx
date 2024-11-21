@@ -66,7 +66,7 @@ const JobS = () => {
           </div>
         </div>
       ) : (
-        <Nojob />
+        <Nojob text={"Sorry , No Openings Right Now Visit Later"}/>
       )}
     </div>
   );
