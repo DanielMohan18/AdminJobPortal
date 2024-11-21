@@ -60,11 +60,15 @@ const AddMcq = () => {
     }
 
     const exsistingdata=assignmentDetails.filter(res=>res.jobTitle===job[0]);
-  
-    const questionExists = exsistingdata.filter(res=>res.question===question);
-  
-    if (questionExists.length>0) {
+    const dataa=exsistingdata.filter(res=>res.question===question.trim());
+    const questionExists = assignmentDetails.filter(res=>res.question===question.trim());
+
+    if (dataa.length>0) {
       alert('This question already exists in this assignment.');
+      return;
+    }
+    if (questionExists.length>0) {
+      alert('This question already exists in other assignment.');
       return;
     }
 
@@ -101,6 +105,9 @@ const AddMcq = () => {
 
   const handleField=()=>{
     setField(false);
+  }
+  const handleQues=()=>{
+    
   }
 
   return (
